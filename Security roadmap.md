@@ -36,18 +36,27 @@ You should implement the SIEM system yourself to understand the following:
 
 ## Course reference:
 https://tryhackme.com/path/outline/blueteam - highly recommend, it is cover secops,forensic,incident response with practice lab
+
 https://www.cybrary.it/info/mitre-attack-defender/
+
 https://education.splunk.com/free
+
 https://www.learnsplunk.com/
+
 https://academy.attackiq.com/
+
 https://www.coursera.org/specializations/ibm-cybersecurity-analyst 
+
 https://www.cyberwarfare.live/certified-purple-team-analyst 
 
 ## Other reference:
 
 https://www.blueteamsacademy.com/
+
 https://cyberdefenders.org/labs/
+
 https://drive.google.com/file/d/1ZW8yQ7xCsJWd4bJ3R1np4cnOk-xVi1Zs/view
+
 https://app.letsdefend.io/academy/ 
 
 # ***DIGITAL FORENSIC AND INCIDENT RESPONSE***
@@ -79,7 +88,9 @@ Analyzing and Reporting Pen Test Results
 
 Course reference:
 https://www.pluralsight.com/paths/comptia-pentest-pt0-001
+
 https://my.ine.com/CyberSecurity/learning-paths/a223968e-3a74-45ed-884d-2d16760b8bbd/penetration-testing-student
+
 https://www.udemy.com/course/practical-ethical-hacking/
 
 
